@@ -2,11 +2,18 @@ package ch.mikewong.adventofcode.challenges
 
 class Day1 : Day(1) {
 
+	private val input = rawInput.map { it.toInt() }
+
 	override fun partOne(): Any {
-		return "1.1"
+		return input.zipWithNext()
+			.count { it.second > it.first }
 	}
 
 	override fun partTwo(): Any {
-		return 1.2
+		return input.asSequence()
+			.windowed(3)
+			.map { it.sum() }
+			.zipWithNext()
+			.count { it.second > it.first }
 	}
 }
