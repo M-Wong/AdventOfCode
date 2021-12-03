@@ -3,13 +3,15 @@ package ch.mikewong.adventofcode
 import ch.mikewong.adventofcode.challenges.Day
 import ch.mikewong.adventofcode.challenges.Day1
 import ch.mikewong.adventofcode.challenges.Day2
+import ch.mikewong.adventofcode.challenges.Day3
 
 object Application {
 
 	private val mode: Mode = Mode.AllDays
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
-		Day2()
+		Day2(),
+		Day3(),
 	)
 
 	@JvmStatic
