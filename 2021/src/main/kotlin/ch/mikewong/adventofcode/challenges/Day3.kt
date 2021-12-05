@@ -2,18 +2,18 @@ package ch.mikewong.adventofcode.challenges
 
 class Day3 : Day<Int, Int>(3, "Binary Diagnostic") {
 
-	private val inputLength = rawInput.first().length
+	private val inputLength = inputLines.first().length
 
 	override fun partOne(): Int {
-		val gammaRate = IntArray(inputLength) { rawInput.getMostCommonBitAt(it) }.joinToString("").toInt(2)
-		val epsilonRate = IntArray(inputLength) { rawInput.getLeastCommonBitAt(it) }.joinToString("").toInt(2)
+		val gammaRate = IntArray(inputLength) { inputLines.getMostCommonBitAt(it) }.joinToString("").toInt(2)
+		val epsilonRate = IntArray(inputLength) { inputLines.getLeastCommonBitAt(it) }.joinToString("").toInt(2)
 
 		return gammaRate * epsilonRate
 	}
 
 	override fun partTwo(): Int {
-		var oxygenRatingList = rawInput
-		var co2RatingList = rawInput
+		var oxygenRatingList = inputLines
+		var co2RatingList = inputLines
 
 		val range = 0 until inputLength
 		range.forEach { position ->

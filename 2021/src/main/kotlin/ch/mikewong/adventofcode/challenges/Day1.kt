@@ -2,7 +2,7 @@ package ch.mikewong.adventofcode.challenges
 
 class Day1 : Day<Int, Int>(1, "Sonar Sweep") {
 
-	private val input = rawInput.map { it.toInt() }
+	private val input = inputLines.map { it.toInt() }
 
 	override fun partOne(): Int {
 		return input.zipWithNext()

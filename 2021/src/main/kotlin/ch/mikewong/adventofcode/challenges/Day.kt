@@ -4,9 +4,13 @@ import ch.mikewong.adventofcode.util.InputUtil
 
 abstract class Day<O, T>(val index: Int, val title: String) {
 
-	protected val rawInput: List<String> by lazy { InputUtil.readInputLines(index) }
-	protected val groupedInput: List<List<String>> by lazy { InputUtil.readInputGroups(index) }
+	protected val inputLines: List<String> by lazy { InputUtil.readInputLines(index) }
+	protected val inputGroups: List<List<String>> by lazy { InputUtil.readInputGroups(index) }
 
 	abstract fun partOne(): O
 	abstract fun partTwo(): T
+
+	override fun toString(): String {
+		return "Year 2021, Day $index: $title"
+	}
 }

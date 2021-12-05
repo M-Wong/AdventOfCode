@@ -8,22 +8,22 @@ import ch.mikewong.adventofcode.challenges.Day4
 
 object Application {
 
-	private val mode: Mode = Mode.SingleDay(4)
+	private val runMode: RunMode = RunMode.SingleDay(4)
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
 		Day2(),
 		Day3(),
-		Day4()
+		Day4(),
 	)
 
 	@JvmStatic
 	fun main(args: Array<String>) {
-		when (mode) {
-			is Mode.AllDays -> days.forEach {
+		when (runMode) {
+			is RunMode.AllDays -> days.forEach {
 				runSingleDay(it)
 				println()
 			}
-			is Mode.SingleDay -> runSingleDay(days[mode.day - 1])
+			is RunMode.SingleDay -> runSingleDay(days[runMode.day - 1])
 		}
 	}
 
@@ -36,8 +36,8 @@ object Application {
 		println("Part 2: $partTwoResult")
 	}
 
-	sealed class Mode {
-		object AllDays : Mode()
-		data class SingleDay(val day: Int) : Mode()
+	sealed class RunMode {
+		object AllDays : RunMode()
+		data class SingleDay(val day: Int) : RunMode()
 	}
 }

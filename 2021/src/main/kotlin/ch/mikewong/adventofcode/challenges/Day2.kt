@@ -2,7 +2,7 @@ package ch.mikewong.adventofcode.challenges
 
 class Day2 : Day<Int, Int>(2, "Dive!") {
 
-	private val input = rawInput.map {
+	private val input = inputLines.map {
 		val parts = it.split(" ")
 		Move(Direction.valueOf(parts.first().uppercase()), parts.last().toInt())
 	}

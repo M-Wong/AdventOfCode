@@ -4,8 +4,8 @@ import ch.mikewong.adventofcode.util.asInts
 
 class Day4 : Day<Int, Int>(4, "Giant Squid") {
 
-	private val numbers = rawInput.first().split(",").asInts()
-	private val boards = groupedInput.drop(1).map { Board(it.map { it.trim().split("\\s+".toRegex()).asInts() }) }
+	private val numbers = inputLines.first().split(",").asInts()
+	private val boards = inputGroups.drop(1).map { Board(it.map { it.trim().split("\\s+".toRegex()).asInts() }) }
 
 	override fun partOne(): Int {
 		numbers.indices.forEach { round ->
