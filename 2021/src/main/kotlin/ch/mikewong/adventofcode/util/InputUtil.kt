@@ -1,10 +1,14 @@
 package ch.mikewong.adventofcode.util
 
-import ch.mikewong.adventofcode.Application
+import java.lang.System.lineSeparator
 
 object InputUtil {
-	fun readInputLines(index: Int) = Application::class.java.getResource("/input/day$index.txt")
-		?.readText()
-		?.split(System.lineSeparator())
+	fun readInputLines(index: Int) = readResource("/input/day$index.txt")?.split(lineSeparator()) ?: emptyList()
+
+	fun readInputGroups(index: Int) = readResource("/input/day$index.txt")
+		?.split(lineSeparator() + lineSeparator())
+		?.map { it.split(lineSeparator()) }
 		?: emptyList()
+
+	private fun readResource(path: String) = this::class.java.getResource(path)?.readText()
 }

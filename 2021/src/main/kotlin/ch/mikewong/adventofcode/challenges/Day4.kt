@@ -1,0 +1,51 @@
+package ch.mikewong.adventofcode.challenges
+
+import ch.mikewong.adventofcode.util.asInts
+
+class Day4 : Day<Int, Int>(4, "Giant Squid") {
+
+	private val numbers = rawInput.first().split(",").asInts()
+	private val boards = groupedInput.drop(1).map { Board(it.map { it.trim().split("\\s+".toRegex()).asInts() }) }
+
+	override fun partOne(): Int {
+		numbers.indices.forEach { round ->
+			val numbersSoFar = numbers.take(round + 1)
+			boards.firstOrNull { it.hasWon(numbersSoFar) }?.let {
+				return it.sumUnmarkedNumbers(numbersSoFar) * numbersSoFar.last()
+			}
+		}
+
+		throw IllegalStateException("Could not find a winning board")
+	}
+
+	override fun partTwo(): Int {
+		val nonWinningBoards = boards.toMutableList()
+		numbers.indices.forEach { round ->
+			val numbersSoFar = numbers.take(round + 1)
+			if (nonWinningBoards.size > 1) {
+				nonWinningBoards.removeIf { it.hasWon(numbersSoFar) }
+			} else {
+				val lastBoard = nonWinningBoards.single()
+				if (lastBoard.hasWon(numbersSoFar)) {
+					return lastBoard.sumUnmarkedNumbers(numbersSoFar) * numbersSoFar.last()
+				}
+			}
+		}
+
+		throw IllegalStateException("Could not find a winning board")
+	}
+
+	private class Board(val board: List<List<Int>>) {
+		fun hasWon(numbers: List<Int>): Boolean {
+			return board.indices.any { row ->
+				val hasRowWon = board[row].all { numbers.contains(it) }
+				val hasColumnWon = board.indices.all { numbers.contains(board[it][row]) }
+				hasRowWon || hasColumnWon
+			}
+		}
+
+		fun sumUnmarkedNumbers(numbers: List<Int>): Int {
+			return board.sumOf { it.filter { !numbers.contains(it) }.sum() }
+		}
+	}
+}
