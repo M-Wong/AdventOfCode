@@ -5,15 +5,17 @@ import ch.mikewong.adventofcode.challenges.Day1
 import ch.mikewong.adventofcode.challenges.Day2
 import ch.mikewong.adventofcode.challenges.Day3
 import ch.mikewong.adventofcode.challenges.Day4
+import ch.mikewong.adventofcode.challenges.Day5
 
 object Application {
 
-	private val runMode: RunMode = RunMode.SingleDay(4)
+	private val runMode: RunMode = RunMode.AllDays
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
 		Day2(),
 		Day3(),
 		Day4(),
+		Day5(),
 	)
 
 	@JvmStatic
