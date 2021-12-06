@@ -6,6 +6,7 @@ import ch.mikewong.adventofcode.challenges.Day2
 import ch.mikewong.adventofcode.challenges.Day3
 import ch.mikewong.adventofcode.challenges.Day4
 import ch.mikewong.adventofcode.challenges.Day5
+import ch.mikewong.adventofcode.challenges.Day6
 
 object Application {
 
@@ -16,6 +17,7 @@ object Application {
 		Day3(),
 		Day4(),
 		Day5(),
+		Day6(),
 	)
 
 	@JvmStatic
