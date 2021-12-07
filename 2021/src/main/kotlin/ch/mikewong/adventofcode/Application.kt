@@ -7,10 +7,11 @@ import ch.mikewong.adventofcode.challenges.Day3
 import ch.mikewong.adventofcode.challenges.Day4
 import ch.mikewong.adventofcode.challenges.Day5
 import ch.mikewong.adventofcode.challenges.Day6
+import ch.mikewong.adventofcode.challenges.Day7
 
 object Application {
 
-	private val runMode: RunMode = RunMode.AllDays
+	private val runMode: RunMode = RunMode.SingleDay(7)
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
 		Day2(),
@@ -18,6 +19,7 @@ object Application {
 		Day4(),
 		Day5(),
 		Day6(),
+		Day7(),
 	)
 
 	@JvmStatic
