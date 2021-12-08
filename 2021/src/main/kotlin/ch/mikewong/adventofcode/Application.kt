@@ -9,10 +9,11 @@ import ch.mikewong.adventofcode.challenges.Day5
 import ch.mikewong.adventofcode.challenges.Day6
 import ch.mikewong.adventofcode.challenges.Day7
 import ch.mikewong.adventofcode.challenges.Day8
+import kotlin.system.measureNanoTime
 
 object Application {
 
-	private val runMode: RunMode = RunMode.SingleDay(8)
+	private val runMode: RunMode = RunMode.AllDays
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
 		Day2(),
@@ -37,11 +38,17 @@ object Application {
 
 	private fun runSingleDay(day: Day<*, *>) {
 		println("--- Day ${day.index}: ${day.title} ---")
-		val partOneResult = day.partOne()
-		println("Part 1: $partOneResult")
+		runAndMeasurePart(1) { day.partOne() }
+		runAndMeasurePart(2) { day.partTwo() }
+	}
 
-		val partTwoResult = day.partTwo()
-		println("Part 2: $partTwoResult")
+	private fun runAndMeasurePart(part: Int, block: () -> Any?) {
+		val result: Any?
+		val time = measureNanoTime {
+			result = block.invoke()
+		} / 1_000_000f
+		println("Part $part: $result (took $time ms)")
+
 	}
 
 	sealed class RunMode {
