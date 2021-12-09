@@ -1,7 +1,6 @@
 package ch.mikewong.adventofcode.challenges
 
 import ch.mikewong.adventofcode.util.containsAllCharsOf
-import ch.mikewong.adventofcode.util.containsNumberOfCharacters
 import ch.mikewong.adventofcode.util.hasSameCharsAs
 
 class Day8 : Day<Int, Int>(8, "Seven Segment Search") {

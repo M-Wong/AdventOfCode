@@ -1,5 +1,7 @@
 package ch.mikewong.adventofcode.util
 
+import ch.mikewong.adventofcode.models.Point
+
 /**
  * Convert a list of strings to a list of ints with the given [radix]
  */
@@ -28,4 +30,20 @@ fun String.hasSameCharsAs(other: String) = this.toSortedSet() == other.toSortedS
  */
 fun String.containsAllCharsOf(other: String) = other.all { this.contains(it) }
 
-fun String.containsNumberOfCharacters(other: String, count: Int = 1) = other.count { this.contains(it) } == count
+/**
+ * Converts a list of strings to an int grid, where each character is mapped to a point with x/y (row/column) and its integer value
+ */
+fun List<String>.toIntGrid(): Map<Point, Int> {
+	return mapIndexed { row, line ->
+		line.toCharArray().mapIndexed { column, char ->
+			Point(row, column) to char.digitToInt()
+		}
+	}.flatten().toMap()
+}
+
+/**
+ * Return the [count] highest numbers in this list
+ */
+fun <T: Number> List<T>.top(count: Int): List<T> {
+	return sortedByDescending { it.toDouble() }.take(count)
+}
