@@ -47,3 +47,11 @@ fun List<String>.toIntGrid(): Map<Point, Int> {
 fun <T: Number> List<T>.top(count: Int): List<T> {
 	return sortedByDescending { it.toDouble() }.take(count)
 }
+
+/**
+ * Return the middle element of a list assuming it has an odd number of entries
+ */
+fun <T> List<T>.middle(): T {
+	if (size % 2 == 0) throw IllegalStateException("Can't get middle element from collection with even size")
+	return this[size / 2]
+}
