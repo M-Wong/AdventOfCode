@@ -11,4 +11,18 @@ data class Point(val x: Int, val y: Int) {
 		Point(x, y - 1),
 		Point(x, y + 1),
 	)
+
+	/**
+	 * Return directly surrounding points
+	 */
+	fun surrounding() = listOf(
+		Point(x - 1, y - 1),
+		Point(x, y - 1),
+		Point(x + 1, y - 1),
+		Point(x - 1, y),
+		Point(x + 1, y),
+		Point(x - 1, y + 1),
+		Point(x, y + 1),
+		Point(x + 1, y + 1),
+	)
 }
