@@ -55,3 +55,13 @@ fun <T> List<T>.middle(): T {
 	if (size % 2 == 0) throw IllegalStateException("Can't get middle element from collection with even size")
 	return this[size / 2]
 }
+
+/**
+ * Check if a string only consists of uppercase or whitespace characters
+ */
+fun String.isAllUpperCase() = this.all { it.isWhitespace() || it.isUpperCase() }
+
+/**
+ * Check if a string only consists of lowercase or whitespace characters
+ */
+fun String.isAllLowerCase() = this.all { it.isWhitespace() || it.isLowerCase() }
