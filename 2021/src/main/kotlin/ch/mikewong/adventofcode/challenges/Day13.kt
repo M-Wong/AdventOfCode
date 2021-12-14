@@ -12,7 +12,7 @@ class Day13 : Day<Int, String>(13, "Transparent Origami") {
 	private val maxX = dotPositions.maxOf { it.first() }
 	private val maxY = dotPositions.maxOf { it.last() }
 
-	override fun partOne() = 17 //foldPaper(listOf(foldInstructions.first())).sumOf { row -> row.count { it } }
+	override fun partOne() = foldPaper(listOf(foldInstructions.first())).sumOf { row -> row.count { it } }
 
 	override fun partTwo(): String {
 		val folded = foldPaper(foldInstructions)
@@ -47,9 +47,9 @@ class Day13 : Day<Int, String>(13, "Transparent Origami") {
 				}
 			}
 
-			val ascii = dotArray.map { it.map { if (it) "#" else "." }.joinToString("") }.joinToString("\n")
-			println(ascii)
-			println("")
+//			val ascii = dotArray.map { it.map { if (it) "#" else "." }.joinToString("") }.joinToString("\n")
+//			println(ascii)
+//			println("")
 		}
 
 		return dotArray

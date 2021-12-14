@@ -65,3 +65,28 @@ fun String.isAllUpperCase() = this.all { it.isWhitespace() || it.isUpperCase() }
  * Check if a string only consists of lowercase or whitespace characters
  */
 fun String.isAllLowerCase() = this.all { it.isWhitespace() || it.isLowerCase() }
+
+/**
+ * Create a pair out of a list using the first and last element (other elements, assuming there are any, are discarded)
+ */
+fun List<String>.toPair() = first() to last()
+
+/**
+ * Count the number of instances
+ */
+fun <T, K> List<T>.longCount(selector: (T) -> K) = groupingBy(selector).eachCount().mapValues { it.value.toLong() }
+
+/**
+ * Increment the value of [key] in a map with value type long by [amount]
+ */
+fun <T> MutableMap<T, Long>.increment(key: T, amount: Long = 1L): MutableMap<T, Long> {
+	this[key] = this.getOrDefault(key, 0L) + amount
+	return this
+}
+
+/**
+ * Return the range of values in a map with value type long
+ */
+fun <T> Map<T, Long>.range(): Long {
+	return maxOf { it.value } - minOf { it.value }
+}
