@@ -90,3 +90,10 @@ fun <T> MutableMap<T, Long>.increment(key: T, amount: Long = 1L): MutableMap<T, 
 fun <T> Map<T, Long>.range(): Long {
 	return maxOf { it.value } - minOf { it.value }
 }
+
+/**
+ * Returns the product of a list of longs
+ */
+fun List<Long>.product(): Long {
+	return reduce { acc, number -> acc * number }
+}

@@ -8,6 +8,7 @@ import ch.mikewong.adventofcode.challenges.Day12
 import ch.mikewong.adventofcode.challenges.Day13
 import ch.mikewong.adventofcode.challenges.Day14
 import ch.mikewong.adventofcode.challenges.Day15
+import ch.mikewong.adventofcode.challenges.Day16
 import ch.mikewong.adventofcode.challenges.Day2
 import ch.mikewong.adventofcode.challenges.Day3
 import ch.mikewong.adventofcode.challenges.Day4
@@ -20,7 +21,7 @@ import kotlin.system.measureNanoTime
 
 object Application {
 
-	private val runMode: RunMode = RunMode.SingleDay(15)
+	private val runMode: RunMode = RunMode.SingleDay(16)
 	private val days: List<Day<*, *>> = listOf(
 		Day1(),
 		Day2(),
@@ -37,6 +38,7 @@ object Application {
 		Day13(),
 		Day14(),
 		Day15(),
+		Day16(),
 	)
 
 	@JvmStatic
