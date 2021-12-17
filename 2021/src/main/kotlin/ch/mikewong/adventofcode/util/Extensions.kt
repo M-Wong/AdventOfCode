@@ -1,6 +1,7 @@
 package ch.mikewong.adventofcode.util
 
 import ch.mikewong.adventofcode.models.Point
+import kotlin.math.abs
 
 /**
  * Convert a list of strings to a list of ints with the given [radix]
@@ -96,4 +97,17 @@ fun <T> Map<T, Long>.range(): Long {
  */
 fun List<Long>.product(): Long {
 	return reduce { acc, number -> acc * number }
+}
+
+/**
+ * Return a substring between two delimiters or [defaultValue] if either of them is not found
+ */
+fun String.substringBetween(startDelimiter: String, endDelimiter: String, defaultValue: String = ""): String {
+	val startIndex = indexOf(startDelimiter) + startDelimiter.length
+	val endIndex = indexOf(endDelimiter, startIndex)
+	return if (startIndex != -1 && endIndex != -1) {
+		substring(startIndex, endIndex)
+	} else {
+		defaultValue
+	}
 }
