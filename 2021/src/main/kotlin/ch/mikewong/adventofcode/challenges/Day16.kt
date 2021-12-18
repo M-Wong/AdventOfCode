@@ -24,7 +24,7 @@ class Day16 : Day<Int, Long>(16, "Packet Decoder") {
 	)
 
 	private val inputTransmission = inputLines.map { line -> line.mapNotNull { hexToBinary[it] }.joinToString("") }.first()
-	private val inputPacket = parsePackets(inputTransmission).single()
+	private val inputPacket by lazy { parsePackets(inputTransmission).single() }
 
 	override fun partOne(): Int {
 		return inputPacket.versionSum
