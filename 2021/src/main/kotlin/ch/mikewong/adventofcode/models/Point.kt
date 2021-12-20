@@ -1,5 +1,9 @@
 package ch.mikewong.adventofcode.models
 
+/**
+ * x == row
+ * y == column
+ */
 data class Point(val x: Int, val y: Int) {
 
 	/**
@@ -15,14 +19,15 @@ data class Point(val x: Int, val y: Int) {
 	/**
 	 * Return directly surrounding points
 	 */
-	fun surrounding(filter: (Point) -> Boolean = { true }) = listOf(
+	fun surrounding(includeItself: Boolean = false, filter: (Point) -> Boolean = { true }) = listOfNotNull(
 		Point(x - 1, y - 1),
-		Point(x, y - 1),
-		Point(x + 1, y - 1),
 		Point(x - 1, y),
-		Point(x + 1, y),
 		Point(x - 1, y + 1),
+		Point(x, y - 1),
+		if (includeItself) this else null,
 		Point(x, y + 1),
+		Point(x + 1, y - 1),
+		Point(x + 1, y),
 		Point(x + 1, y + 1),
 	).filter(filter)
 

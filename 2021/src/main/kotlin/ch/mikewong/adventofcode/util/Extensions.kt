@@ -43,6 +43,17 @@ fun List<String>.toIntGrid(): Map<Point, Int> {
 }
 
 /**
+ * Converts a list of strings to an char grid, where each character is mapped to a point with x/y (row/column) and its char value
+ */
+fun List<String>.toCharGrid(): Map<Point, Char> {
+	return mapIndexed { row, line ->
+		line.toCharArray().mapIndexed { column, char ->
+			Point(row, column) to char
+		}
+	}.flatten().toMap()
+}
+
+/**
  * Return the [count] highest numbers in this list
  */
 fun <T: Number> List<T>.top(count: Int): List<T> {
