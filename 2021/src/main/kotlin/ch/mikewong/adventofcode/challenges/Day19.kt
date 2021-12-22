@@ -1,96 +1,111 @@
 package ch.mikewong.adventofcode.challenges
 
 import ch.mikewong.adventofcode.models.Point3D
-import ch.mikewong.adventofcode.util.addTogether
 import ch.mikewong.adventofcode.util.keysIntersectingByValue
-import ch.mikewong.adventofcode.util.longCount
 
 class Day19 : Day<Int, Int>(19, "Beacon Scanner") {
 
 	private val zeroPoint = Point3D(0, 0, 0)
 	private val scanners by lazy {
 		inputGroups.mapIndexed { i, group ->
-			Scanner(i, group.drop(1).map { Point3D.fromString(it) })
+			Scanner(i, group.drop(1).map { Point3D.fromString(it) }, zeroPoint)
 		}
 	}
 
-	override fun partOne(): Int {
-		val relativeScannerPositions = Array<Point3D?>(scanners.size) { null }
-		relativeScannerPositions[0] = zeroPoint // The first scanner is the relative zero point
+	private val resolvedScanners by lazy { resolveScanners() }
 
-		var beaconCount = scanners.sumOf { it.beacons.count() }
-		val overlaps = Array(scanners.size) { Array(scanners.size) { emptyList<Pair<Point3D, Point3D>>() } }
-		val overlapStack = ArrayDeque<Pair<Int, Int>>()
-
-		scanners.forEach { scannerA ->
-			scanners.drop(scannerA.index + 1).forEach { scannerB ->
-				// Intersect the beacon distances from scanner A and scanner B
-				val pointIntersectionByDistance = scannerA.beaconDistances.keysIntersectingByValue(scannerB.beaconDistances)
-				val beaconPointsA = pointIntersectionByDistance.map { listOf(it.first.first, it.first.second) }.flatten().toSet()
-				if (beaconPointsA.size >= 12) {
-					val correspondingBeaconPoints = beaconPointsA.map { aKey ->
-						val bKeys = pointIntersectionByDistance.filter { it.first.first == aKey || it.first.second == aKey }.map { it.second }
-						val groupedBKeys = bKeys.longCount { it.first }.addTogether(bKeys.longCount { it.second })
-						aKey to groupedBKeys.maxByOrNull { it.value }!!.key
-					}
-
-
-
-					overlaps[scannerA.index][scannerB.index] = correspondingBeaconPoints
-					overlaps[scannerB.index][scannerA.index] = correspondingBeaconPoints.map { it.second to it.first }
-
-					println("Scanner ${scannerA.index} intersects with scanner ${scannerB.index} at these points:")
-					correspondingBeaconPoints.forEach {
-						println("${it.first} to ${it.second}")
-					}
-					println()
-				}
-			}
-		}
-
-		val duplicateBeacons = Array<Set<Point3D>>(scanners.size) { emptySet() }
-		scanners.forEach { scanner ->
-			scanner.beacons.forEach { point ->
-				overlaps[scanner.index].forEach { overlap ->
-					if (overlap.map { it.first }.contains(point)) {
-						beaconCount--
-					}
-				}
-
-
-
-			}
-		}
-
-
-		return scanners.sumOf { it.beacons.count() } - duplicateBeacons.sumOf { it.count() }
-	}
-
-	private fun resolveScannerPositionRelativeTo(reference: Point3D, pointMapping: List<Pair<Point3D, Point3D>>): Point3D {
-		return pointMapping.map {
-			val (pA, pB) = it
-			Point3D(
-				pA.x + pB.x,
-				pA.y - pB.y,
-				pA.z + pB.z
-			)
-		}.distinct().first()
-	}
+	override fun partOne() = resolvedScanners.flatMap { it.beacons }.distinct().count()
 
 	override fun partTwo(): Int {
-		return 0
+		val resolvedScannerPositions = resolvedScanners.map { it.position }
+		return resolvedScannerPositions.maxOf { a ->
+			resolvedScannerPositions.maxOf { b -> a.manhattanDistanceTo(b) }
+		}
 	}
 
-	private data class Scanner(val index: Int, val beacons: List<Point3D>) {
-		val beaconDistances = mutableMapOf<Pair<Point3D, Point3D>, Double>()
+	private fun resolveScanners(): List<Scanner> {
+		// Begin with the first scanner which is the reference (already "solved") scanner
+		val scannersToCheck = mutableListOf(scanners[0])
+		val resolvedScanners = mutableListOf(scanners[0])
 
-		init {
-			beacons.forEachIndexed { i, from ->
-				beacons.drop(i + 1).forEach { to ->
-					beaconDistances[from to to] = from.distanceTo(to)
+		while (scannersToCheck.isNotEmpty()) {
+			val scannerToCheck = scannersToCheck.removeFirst()
+
+			// Get the unresolved scanners
+			val unresolvedScanners = scanners.filterNot { s -> s.index in resolvedScanners.map { it.index } }
+			unresolvedScanners.forEach { unresolvedScanner ->
+				// Try to resolve the current scanner by checking if it intersects with the reference scanner
+				val resolvedScanner = unresolvedScanner.resolveWith(scannerToCheck)
+
+				if (resolvedScanner != null) {
+					scannersToCheck += resolvedScanner
+					resolvedScanners += resolvedScanner
 				}
 			}
 		}
+
+		return resolvedScanners
 	}
+
+	private fun Scanner.resolveWith(reference: Scanner): Scanner? {
+		rotations.forEach { rotation ->
+			// For each possible rotation, adjust the scanner beacons with the rotation transformation
+			val adjustedBeacons = this.beacons.map { rotation.invoke(it) }
+
+			// If there is a valid delta between those beacons, return the delta-adjusted scanner
+			val delta = findDelta(adjustedBeacons, reference.beacons)
+			if (delta != null) {
+				return this.copy(beacons = adjustedBeacons.map { it - delta }, position = delta)
+			}
+		}
+
+		return null
+	}
+
+	private fun findDelta(beacons: List<Point3D>, referenceBeacons: List<Point3D>): Point3D? {
+		// Iterate each beacon and each reference beacon
+		beacons.forEach { beacon ->
+			referenceBeacons.forEach { referenceBeacon ->
+				// Then calculate the delta between those two beacons
+				val delta = beacon - referenceBeacon
+
+				// Check if there are 12 or more beacons that match reference beacons with the given delta
+				val count = beacons.count { beaconToAdjust -> beaconToAdjust - delta in referenceBeacons }
+				if (count >= 12) {
+					return delta
+				}
+			}
+		}
+		return null
+	}
+
+	private data class Scanner(val index: Int, val beacons: List<Point3D>, val position: Point3D)
+
+	private val rotations = listOf<(Point3D) -> Point3D>(
+		{ p -> Point3D(p.x, p.y, p.z) },
+		{ p -> Point3D(p.y, p.z, p.x) },
+		{ p -> Point3D(p.z, p.x, p.y) },
+		{ p -> Point3D(-p.x, p.z, p.y) },
+		{ p -> Point3D(p.z, p.y, -p.x) },
+		{ p -> Point3D(p.y, -p.x, p.z) },
+		{ p -> Point3D(p.x, p.z, -p.y) },
+		{ p -> Point3D(p.z, -p.y, p.x) },
+		{ p -> Point3D(-p.y, p.x, p.z) },
+		{ p -> Point3D(p.x, -p.z, p.y) },
+		{ p -> Point3D(-p.z, p.y, p.x) },
+		{ p -> Point3D(p.y, p.x, -p.z) },
+		{ p -> Point3D(-p.x, -p.y, p.z) },
+		{ p -> Point3D(-p.y, p.z, -p.x) },
+		{ p -> Point3D(p.z, -p.x, -p.y) },
+		{ p -> Point3D(-p.x, p.y, -p.z) },
+		{ p -> Point3D(p.y, -p.z, -p.x) },
+		{ p -> Point3D(-p.z, -p.x, p.y) },
+		{ p -> Point3D(p.x, -p.y, -p.z) },
+		{ p -> Point3D(-p.y, -p.z, p.x) },
+		{ p -> Point3D(-p.z, p.x, -p.y) },
+		{ p -> Point3D(-p.x, -p.z, -p.y) },
+		{ p -> Point3D(-p.z, -p.y, -p.x) },
+		{ p -> Point3D(-p.y, -p.x, -p.z) },
+	)
 
 }

@@ -32,7 +32,7 @@ class Day21 : Day<Int, Long>(21, "Dirac Dice") {
 		var playerOneScore = 0
 		var playerTwoScore = 0
 
-		while (playerOneScore < 100 && playerTwoScore < 100) {
+		while (playerOneScore < 1000 && playerTwoScore < 1000) {
 			val rollValue = diceRollSum.invoke(turn)
 
 			// Advance the players to the next field and increase the score

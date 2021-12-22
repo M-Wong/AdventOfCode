@@ -43,7 +43,7 @@ private class DayProvider : ArgumentsProvider {
 			ControlAnswer(Day16(), 14, 3),
 			ControlAnswer(Day17(), 45, 112),
 			ControlAnswer(Day18(), 4140, 3993),
-			ControlAnswer(Day19(), 79, 0),
+			ControlAnswer(Day19(), 79, 3621),
 			ControlAnswer(Day20(), 35, 3351),
 			ControlAnswer(Day21(), 739785, 444356092776315L),
 			ControlAnswer(Day22(), 474140, 2758514936282235L),
