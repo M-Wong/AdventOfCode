@@ -37,6 +37,17 @@ fun String.hasSameCharsAs(other: String) = this.toSortedSet() == other.toSortedS
 fun String.containsAllCharsOf(other: String) = other.all { this.contains(it) }
 
 /**
+ * Converts a list of strings to a grid where each character is mapped to a point with x/y (row/column) and its mapping value
+ */
+fun <T> List<String>.toGrid(mapping: (Char) -> T): Map<Point, T> {
+	return mapIndexed { row, line ->
+		line.mapIndexed { column, char ->
+			Point(row, column) to mapping.invoke(char)
+		}
+	}.flatten().toMap()
+}
+
+/**
  * Converts a list of strings to an int grid, where each character is mapped to a point with x/y (row/column) and its integer value
  */
 fun List<String>.toIntGrid(): Map<Point, Int> {
@@ -153,4 +164,27 @@ fun String.substringBetween(startDelimiter: String, endDelimiter: String, defaul
 	} else {
 		defaultValue
 	}
+}
+
+/**
+ * Return a list with the element at [index] replaced with [newValue]
+ */
+fun <T> List<T>.set(index: Int, newValue: T): List<T> {
+	val newList = this.toMutableList()
+	newList[index] = newValue
+	return newList
+}
+
+/**
+ * Return a list with the element [oldValue] replaced with [newValue] or appended if it didn't exist
+ */
+fun <T> List<T>.set(oldValue: T, newValue: T): List<T> {
+	val newList = this.toMutableList()
+	val oldIndex = newList.indexOf(oldValue)
+	if (oldIndex != -1) {
+		newList[oldIndex] = newValue
+	} else {
+		newList.add(newValue)
+	}
+	return newList
 }
