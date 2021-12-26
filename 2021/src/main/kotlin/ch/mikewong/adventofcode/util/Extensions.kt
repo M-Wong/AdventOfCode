@@ -37,12 +37,13 @@ fun String.hasSameCharsAs(other: String) = this.toSortedSet() == other.toSortedS
 fun String.containsAllCharsOf(other: String) = other.all { this.contains(it) }
 
 /**
- * Converts a list of strings to a grid where each character is mapped to a point with x/y (row/column) and its mapping value
+ * Converts a list of strings to a grid where each character is mapped to a point with x/y (row/column) and its mapping value.
+ * Skips characters that map to null
  */
-fun <T> List<String>.toGrid(mapping: (Char) -> T): Map<Point, T> {
+fun <T> List<String>.toGridNotNull(mapping: (Char) -> T?): Map<Point, T> {
 	return mapIndexed { row, line ->
-		line.mapIndexed { column, char ->
-			Point(row, column) to mapping.invoke(char)
+		line.mapIndexedNotNull { column, char ->
+			mapping.invoke(char)?.let { Point(row, column) to it }
 		}
 	}.flatten().toMap()
 }
