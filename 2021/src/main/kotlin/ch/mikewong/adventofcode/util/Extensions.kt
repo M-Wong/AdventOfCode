@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.util
 
 import ch.mikewong.adventofcode.models.Point
-import kotlin.math.abs
+import java.util.Collections.swap
 
 /**
  * Convert a list of strings to a list of ints with the given [radix]
@@ -187,4 +187,85 @@ fun <T> List<T>.set(oldValue: T, newValue: T): List<T> {
 		newList.add(newValue)
 	}
 	return newList
+}
+
+/**
+ * Return a list of all possible permutations given the elements in [this] collection
+ */
+fun <T> List<T>.permutations(): List<List<T>> {
+	val result = mutableListOf<List<T>>()
+
+	fun generate(k: Int, list: List<T>) {
+		if (k == 1) {
+			result.add(list.toList())
+		} else {
+			(0 until k).forEach { i ->
+				generate(k - 1, list)
+				if (k % 2 == 0) {
+					swap(list, i, k - 1)
+				} else {
+					swap(list, 0, k - 1)
+				}
+			}
+		}
+	}
+
+	generate(this.size, this.toList())
+	return result
+}
+
+/**
+ * Cartesian product for CharRanges.
+ * The input is the range itself repeated n times
+ *
+ * @param n How often the Range is repeated
+ * @return The cartesian prodcut of the range
+ */
+fun IntProgression.cartProd(n: Int): Sequence<List<Int>> {
+	val ranges = repeat(n).toList().toTypedArray()
+	return cartProd(*(ranges))
+}
+
+/**
+ * Make a [Sequence] that returns object over and over again.
+ * Runs indefinitely unless the [times] argument is specified.
+ *
+ * @param times How often the object is repeated. null means its repeated indefinitely
+ */
+fun <T : Any> T.repeat(times: Int? = null): Sequence<T> = sequence {
+	var count = 0
+	while (times == null || count++ < times) yield(this@repeat)
+}
+
+/**
+ * Cartesian product of input [Iterable]. (https://en.wikipedia.org/wiki/Cartesian_product)
+ * Roughly equivalent to nested for-loops in a generator expression.
+ * For example, product(A, B) returns the same as ((x,y) for x in A for y in B).
+ * The nested loops cycle like an odometer with the rightmost element advancing on every iteration.
+ * This pattern creates a lexicographic ordering so that if the input’s iterables are sorted,
+ * the product tuples are emitted in sorted order.
+ *
+ * @param items The input for which the cartesian product is calucalted
+ *
+ * @return A [Sequence] of [List] which contains the cartesian product
+ *
+ */
+fun <T : Any> cartProd(vararg items: Iterable<T>): Sequence<List<T>> = sequence {
+	if (items.all { it.iterator().hasNext() }) {
+		val itemsIter = items.map { it.iterator() }.filter { it.hasNext() }.toMutableList()
+		val currElement: MutableList<T> = itemsIter.map { it.next() }.toMutableList()
+		loop@ while (true) {
+			yield(currElement.toList())
+			for (pos in itemsIter.count() - 1 downTo 0) {
+				if (!itemsIter[pos].hasNext()) {
+					if (pos == 0) break@loop
+					itemsIter[pos] = items[pos].iterator()
+					currElement[pos] = itemsIter[pos].next()
+				} else {
+					currElement[pos] = itemsIter[pos].next()
+					break
+				}
+			}
+		}
+	}
 }
