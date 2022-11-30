@@ -1,2 +1,0 @@
-include ':2021'
-rootProject.name = 'AdventOfCode'
