@@ -1,6 +1,6 @@
 package ch.mikewong.adventofcode.year2021
 
-import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.BaseRunner
 import ch.mikewong.adventofcode.year2021.challenges.Day1
 import ch.mikewong.adventofcode.year2021.challenges.Day10
 import ch.mikewong.adventofcode.year2021.challenges.Day11
@@ -26,12 +26,11 @@ import ch.mikewong.adventofcode.year2021.challenges.Day6
 import ch.mikewong.adventofcode.year2021.challenges.Day7
 import ch.mikewong.adventofcode.year2021.challenges.Day8
 import ch.mikewong.adventofcode.year2021.challenges.Day9
-import kotlin.system.measureNanoTime
 
-object Runner {
+object Runner : BaseRunner() {
 
-	private val runMode: RunMode = RunMode.AllDays
-	private val days: List<Day<*, *>> = listOf(
+	override val runMode = RunMode.AllDays
+	override val days = listOf(
 		Day1(),
 		Day2(),
 		Day3(),
@@ -60,33 +59,5 @@ object Runner {
 	)
 
 	@JvmStatic
-	fun main(args: Array<String>) {
-		when (runMode) {
-			is RunMode.AllDays -> days.forEach {
-				runSingleDay(it)
-				println()
-			}
-			is RunMode.SingleDay -> runSingleDay(days[runMode.day - 1])
-		}
-	}
-
-	private fun runSingleDay(day: Day<*, *>) {
-		println("--- Day ${day.index}: ${day.title} ---")
-		runAndMeasurePart(1) { day.partOne() }
-		runAndMeasurePart(2) { day.partTwo() }
-	}
-
-	private fun runAndMeasurePart(part: Int, block: () -> Any?) {
-		val result: Any?
-		val time = measureNanoTime {
-			result = block.invoke()
-		} / 1_000_000f
-		println("Part $part: $result (took $time ms)")
-
-	}
-
-	sealed class RunMode {
-		object AllDays : RunMode()
-		data class SingleDay(val day: Int) : RunMode()
-	}
+	fun main(args: Array<String>) = execute()
 }
