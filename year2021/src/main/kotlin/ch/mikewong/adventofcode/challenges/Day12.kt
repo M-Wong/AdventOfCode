@@ -1,10 +1,11 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Graph
-import ch.mikewong.adventofcode.util.isAllLowerCase
-import ch.mikewong.adventofcode.util.isAllUpperCase
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Graph
+import ch.mikewong.adventofcode.common.util.isAllLowerCase
+import ch.mikewong.adventofcode.common.util.isAllUpperCase
 
-class Day12 : Day<Int, Int>(12, "Passage Pathing") {
+class Day12 : Day<Int, Int>(2021, 12, "Passage Pathing") {
 
 	private val paths = inputLines.map { it.split('-') }.map { it.first() to it.last() }
 	private val graph = Graph(paths)

@@ -1,6 +1,8 @@
 package ch.mikewong.adventofcode.challenges
 
-class Day1 : Day<Int, Int>(1, "Sonar Sweep") {
+import ch.mikewong.adventofcode.common.challenges.Day
+
+class Day1 : Day<Int, Int>(2021, 1, "Sonar Sweep") {
 
 	private val input = inputLines.map { it.toInt() }
 

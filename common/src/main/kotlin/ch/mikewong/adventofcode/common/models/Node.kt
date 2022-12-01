@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.models
+package ch.mikewong.adventofcode.common.models
 
 class Node<T>(var parent: Node<T>? = null, var depth: Int) {
 	var value: T? = null

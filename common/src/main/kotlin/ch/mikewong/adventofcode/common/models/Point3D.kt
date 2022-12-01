@@ -1,6 +1,6 @@
-package ch.mikewong.adventofcode.models
+package ch.mikewong.adventofcode.common.models
 
-import ch.mikewong.adventofcode.util.asInts
+import ch.mikewong.adventofcode.common.util.asInts
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt

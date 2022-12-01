@@ -1,11 +1,12 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Node
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Node
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.max
 
-class Day18 : Day<Int, Int>(18, "Snailfish") {
+class Day18 : Day<Int, Int>(2021, 18, "Snailfish") {
 
 	override fun partOne(): Int {
 		val snailfishNumbers = inputLines.map { parseSnailfishNumber(it) }

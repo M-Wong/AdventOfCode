@@ -1,8 +1,9 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.product
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.product
 
-class Day16 : Day<Int, Long>(16, "Packet Decoder") {
+class Day16 : Day<Int, Long>(2021, 16, "Packet Decoder") {
 
 	private val hexToBinary = mapOf(
 		'0' to "0000",

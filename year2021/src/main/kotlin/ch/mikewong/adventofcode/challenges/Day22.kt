@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Cuboid
-import ch.mikewong.adventofcode.util.asLongs
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Cuboid
+import ch.mikewong.adventofcode.common.util.asLongs
 
-class Day22 : Day<Long, Long>(22, "Reactor Reboot") {
+class Day22 : Day<Long, Long>(2021, 22, "Reactor Reboot") {
 
 	private val inputSteps by lazy {
 		inputLines.map {

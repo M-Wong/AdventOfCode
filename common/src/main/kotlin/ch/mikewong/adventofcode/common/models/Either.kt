@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.models
+package ch.mikewong.adventofcode.common.models
 
 sealed class Either<out A, out B> {
 	data class Left<A>(val value: A): Either<A, Nothing>()

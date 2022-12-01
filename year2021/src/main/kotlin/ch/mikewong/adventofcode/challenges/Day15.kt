@@ -1,10 +1,11 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point
-import ch.mikewong.adventofcode.util.toIntGrid
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.util.toIntGrid
 import java.util.*
 
-class Day15 : Day<Int, Int>(15, "Chiton") {
+class Day15 : Day<Int, Int>(2021, 15, "Chiton") {
 
 	private val riskGrid = inputLines.toIntGrid()
 	private val startPoint = Point(0, 0)

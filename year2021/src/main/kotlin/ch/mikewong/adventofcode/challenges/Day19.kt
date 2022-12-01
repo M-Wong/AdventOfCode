@@ -1,9 +1,9 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point3D
-import ch.mikewong.adventofcode.util.keysIntersectingByValue
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point3D
 
-class Day19 : Day<Int, Int>(19, "Beacon Scanner") {
+class Day19 : Day<Int, Int>(2021, 19, "Beacon Scanner") {
 
 	private val zeroPoint = Point3D(0, 0, 0)
 	private val scanners by lazy {

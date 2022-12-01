@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.models
+package ch.mikewong.adventofcode.common.models
 
 /**
  * x == row

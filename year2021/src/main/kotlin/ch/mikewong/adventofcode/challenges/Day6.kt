@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.asInts
-import ch.mikewong.adventofcode.util.shiftLeft
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.asInts
+import ch.mikewong.adventofcode.common.util.shiftLeft
 
-class Day6 : Day<Long, Long>(6, "Lanternfish") {
+class Day6 : Day<Long, Long>(2021, 6, "Lanternfish") {
 
 	companion object {
 		private const val FISH_GROWTH_RATE = 7

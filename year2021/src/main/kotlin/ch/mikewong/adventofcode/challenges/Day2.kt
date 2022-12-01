@@ -1,6 +1,8 @@
 package ch.mikewong.adventofcode.challenges
 
-class Day2 : Day<Int, Int>(2, "Dive!") {
+import ch.mikewong.adventofcode.common.challenges.Day
+
+class Day2 : Day<Int, Int>(2021, 2, "Dive!") {
 
 	private val input = inputLines.map {
 		val parts = it.split(" ")

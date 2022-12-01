@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.util
+package ch.mikewong.adventofcode.common.util
 
 /**
  * Increment the value of [key] in a map with value type long by [amount]

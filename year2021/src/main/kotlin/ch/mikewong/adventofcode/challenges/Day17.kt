@@ -1,14 +1,15 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point
-import ch.mikewong.adventofcode.util.asInts
-import ch.mikewong.adventofcode.util.substringBetween
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.util.asInts
+import ch.mikewong.adventofcode.common.util.substringBetween
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.sqrt
 
-class Day17 : Day<Int, Int>(17, "Trick Shot") {
+class Day17 : Day<Int, Int>(2021, 17, "Trick Shot") {
 
 	private val startPoint = Point(0, 0)
 	private val targetArea = inputLines.first().run {
@@ -63,7 +64,7 @@ class Day17 : Day<Int, Int>(17, "Trick Shot") {
 
 }
 
-typealias Velocity =  Point
+typealias Velocity = Point
 
 private fun Velocity.decrease(dragAmount: Int = 1): Velocity {
 	val newX = when {

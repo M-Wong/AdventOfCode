@@ -1,6 +1,6 @@
 package ch.mikewong.adventofcode
 
-import ch.mikewong.adventofcode.challenges.Day
+import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.challenges.Day1
 import ch.mikewong.adventofcode.challenges.Day10
 import ch.mikewong.adventofcode.challenges.Day11

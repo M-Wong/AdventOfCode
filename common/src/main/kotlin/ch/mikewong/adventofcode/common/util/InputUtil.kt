@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.util
+package ch.mikewong.adventofcode.common.util
 
 import java.lang.System.lineSeparator
 

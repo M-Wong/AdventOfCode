@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.asInts
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.asInts
 import kotlin.math.abs
 
-class Day7 : Day<Int, Int>(7, "The Treachery of Whales") {
+class Day7 : Day<Int, Int>(2021, 7, "The Treachery of Whales") {
 
 	private val crabPositions = inputLines.first().split(",").asInts()
 	private val minPosition = crabPositions.minOrNull() ?: 0

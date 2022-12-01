@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.middle
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.middle
 import java.util.ArrayDeque
 
-class Day10 : Day<Long, Long>(10, "Syntax Scoring") {
+class Day10 : Day<Long, Long>(2021, 10, "Syntax Scoring") {
 
 	private val characters = mapOf(
 		'(' to ')', ')' to '(',

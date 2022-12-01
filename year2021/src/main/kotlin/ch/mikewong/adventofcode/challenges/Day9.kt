@@ -1,10 +1,11 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point
-import ch.mikewong.adventofcode.util.toIntGrid
-import ch.mikewong.adventofcode.util.top
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.util.toIntGrid
+import ch.mikewong.adventofcode.common.util.top
 
-class Day9 : Day<Int, Int>(9, "Smoke Basin") {
+class Day9 : Day<Int, Int>(2021, 9, "Smoke Basin") {
 
 	private val heightMap = inputLines.toIntGrid()
 

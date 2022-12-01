@@ -1,6 +1,8 @@
 package ch.mikewong.adventofcode.challenges
 
-class Day3 : Day<Int, Int>(3, "Binary Diagnostic") {
+import ch.mikewong.adventofcode.common.challenges.Day
+
+class Day3 : Day<Int, Int>(2021, 3, "Binary Diagnostic") {
 
 	private val inputLength = inputLines.first().length
 

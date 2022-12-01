@@ -1,8 +1,9 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.asInts
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.asInts
 
-class Day4 : Day<Int, Int>(4, "Giant Squid") {
+class Day4 : Day<Int, Int>(2021, 4, "Giant Squid") {
 
 	private val numbers = inputLines.first().split(",").asInts()
 	private val boards = inputGroups.drop(1).map { group ->

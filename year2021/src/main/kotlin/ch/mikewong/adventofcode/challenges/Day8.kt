@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.containsAllCharsOf
-import ch.mikewong.adventofcode.util.hasSameCharsAs
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.containsAllCharsOf
+import ch.mikewong.adventofcode.common.util.hasSameCharsAs
 
-class Day8 : Day<Int, Int>(8, "Seven Segment Search") {
+class Day8 : Day<Int, Int>(2021, 8, "Seven Segment Search") {
 
 	private val digitMappings = arrayOf(
 		"abcefg", 	// 0

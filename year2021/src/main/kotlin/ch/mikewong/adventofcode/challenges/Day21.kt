@@ -1,8 +1,9 @@
 package ch.mikewong.adventofcode.challenges
 
+import ch.mikewong.adventofcode.common.challenges.Day
 import kotlin.math.min
 
-class Day21 : Day<Int, Long>(21, "Dirac Dice") {
+class Day21 : Day<Int, Long>(2021, 21, "Dirac Dice") {
 
 	private val playerOneStartingPosition = inputLines.first().substringAfter(": ").toInt()
 	private val playerTwoStartingPosition = inputLines.last().substringAfter(": ").toInt()

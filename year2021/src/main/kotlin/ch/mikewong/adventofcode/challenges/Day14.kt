@@ -1,11 +1,12 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.increment
-import ch.mikewong.adventofcode.util.longCount
-import ch.mikewong.adventofcode.util.range
-import ch.mikewong.adventofcode.util.toPair
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.increment
+import ch.mikewong.adventofcode.common.util.longCount
+import ch.mikewong.adventofcode.common.util.range
+import ch.mikewong.adventofcode.common.util.toPair
 
-class Day14 : Day<Long, Long>(14, "Extended Polymerization") {
+class Day14 : Day<Long, Long>(2021, 14, "Extended Polymerization") {
 
 	private val polymerTemplate = inputLines.first()
 	private val pairInsertionRules = inputGroups.last().associate { it.split(" -> ").toPair() }

@@ -1,10 +1,11 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.set
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.set
 import java.util.*
 import kotlin.math.abs
 
-class Day23 : Day<Int, Int>(23, "Amphipod") {
+class Day23 : Day<Int, Int>(2021, 23, "Amphipod") {
 
 	private val burrowCount = 4
 

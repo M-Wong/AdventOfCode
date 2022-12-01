@@ -1,6 +1,6 @@
-package ch.mikewong.adventofcode.util
+package ch.mikewong.adventofcode.common.util
 
-import ch.mikewong.adventofcode.models.Point
+import ch.mikewong.adventofcode.common.models.Point
 import java.util.*
 
 /**

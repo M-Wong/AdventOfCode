@@ -1,8 +1,9 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.util.asInts
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.util.asInts
 
-class Day13 : Day<Int, String>(13, "Transparent Origami") {
+class Day13 : Day<Int, String>(2021, 13, "Transparent Origami") {
 
 	private val dotPositions = inputGroups.first().map { it.split(",").asInts() }
 	private val foldInstructions = inputGroups.last()

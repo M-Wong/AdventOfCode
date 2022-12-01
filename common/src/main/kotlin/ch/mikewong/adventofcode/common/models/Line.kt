@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.models
+package ch.mikewong.adventofcode.common.models
 
 data class Line(val start: Point, val end: Point) {
 	/**

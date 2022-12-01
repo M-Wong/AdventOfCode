@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point
-import ch.mikewong.adventofcode.util.toCharGrid
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.util.toCharGrid
 
-class Day20 : Day<Int, Int>(20, "Trench Map") {
+class Day20 : Day<Int, Int>(2021, 20, "Trench Map") {
 
 	private val imageEnhancementAlgorithm by lazy { inputLines.first() }
 

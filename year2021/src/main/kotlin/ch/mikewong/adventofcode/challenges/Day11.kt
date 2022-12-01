@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Point
-import ch.mikewong.adventofcode.util.toIntGrid
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.util.toIntGrid
 
-class Day11 : Day<Int, Int>(11, "Dumbo Octopus") {
+class Day11 : Day<Int, Int>(2021, 11, "Dumbo Octopus") {
 
 	private val octopusGrid = inputLines.toIntGrid()
 

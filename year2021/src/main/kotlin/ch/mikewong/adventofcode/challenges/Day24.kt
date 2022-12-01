@@ -1,6 +1,8 @@
 package ch.mikewong.adventofcode.challenges
 
-class Day24 : Day<Long, Long>(24, "Arithmetic Logic Unit") {
+import ch.mikewong.adventofcode.common.challenges.Day
+
+class Day24 : Day<Long, Long>(2021, 24, "Arithmetic Logic Unit") {
 
 	private val instructionBlocks by lazy {
 		val blockSize = inputLines.drop(1).indexOf("inp w") + 1

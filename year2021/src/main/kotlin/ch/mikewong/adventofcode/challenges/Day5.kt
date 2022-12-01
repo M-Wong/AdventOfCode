@@ -1,11 +1,12 @@
 package ch.mikewong.adventofcode.challenges
 
-import ch.mikewong.adventofcode.models.Line
-import ch.mikewong.adventofcode.models.Point
+import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.models.Line
+import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
 import kotlin.math.max
 
-class Day5 : Day<Int, Int>(5, "Hydrothermal Venture") {
+class Day5 : Day<Int, Int>(2021, 5, "Hydrothermal Venture") {
 
 	private val ventLines = inputLines.map { line ->
 		val points = line.split(" -> ")
