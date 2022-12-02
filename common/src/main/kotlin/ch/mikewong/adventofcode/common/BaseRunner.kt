@@ -9,13 +9,13 @@ abstract class BaseRunner {
 	abstract val days: List<Day<*, *>>
 
 	protected fun execute() {
-		val mode = runMode
-		when (mode) {
+		when (val mode = runMode) {
 			is RunMode.AllDays -> days.forEach {
 				runSingleDay(it)
 				println()
 			}
 			is RunMode.SingleDay -> runSingleDay(days[mode.day - 1])
+			is RunMode.LastDay -> runSingleDay(days.last())
 		}
 	}
 
@@ -37,5 +37,6 @@ abstract class BaseRunner {
 	sealed class RunMode {
 		object AllDays : RunMode()
 		data class SingleDay(val day: Int) : RunMode()
+		object LastDay : RunMode()
 	}
 }
