@@ -139,3 +139,15 @@ fun <T> List<T>.permutations(): List<List<T>> {
 	generate(this.size, this.toList())
 	return result
 }
+
+/**
+ * Finds the set of characters that all lists have in common
+ */
+fun List<String>.getCharactersInCommon(): Set<Char> {
+	val charSets = this.map { it.toCharArray().toSet() }
+	val retainer = charSets.first().toMutableSet()
+	charSets.drop(1).forEach {
+		retainer.retainAll(it)
+	}
+	return retainer
+}

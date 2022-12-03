@@ -28,6 +28,7 @@ private class DayProvider : ArgumentsProvider {
 		return Stream.of(
 			ControlAnswer(Day1(), 24000, 45000),
 			ControlAnswer(Day2(), 15, 12),
+			ControlAnswer(Day3(), 157, 70),
 		).map { Arguments.of(Named.of(it.day.toString(), it)) }
 	}
 }
