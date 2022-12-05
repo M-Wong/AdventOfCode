@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.common.util
+package ch.mikewong.adventofcode.common.extensions
 
 /**
  * Check if [this] contains the exact same characters as [other] (but maybe in different orders)

@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.common.util
+package ch.mikewong.adventofcode.common.extensions
 
 /**
  * Cartesian product for CharRanges.

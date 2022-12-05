@@ -1,8 +1,8 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.containsAllCharsOf
-import ch.mikewong.adventofcode.common.util.hasSameCharsAs
+import ch.mikewong.adventofcode.common.extensions.containsAllCharsOf
+import ch.mikewong.adventofcode.common.extensions.hasSameCharsAs
 
 class Day8 : Day<Int, Int>(2021, 8, "Seven Segment Search") {
 

@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.asInts
+import ch.mikewong.adventofcode.common.extensions.asInts
 
 class Day13 : Day<Int, String>(2021, 13, "Transparent Origami") {
 

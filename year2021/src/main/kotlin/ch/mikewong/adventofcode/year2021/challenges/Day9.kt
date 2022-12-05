@@ -2,8 +2,8 @@ package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Point
-import ch.mikewong.adventofcode.common.util.toIntGrid
-import ch.mikewong.adventofcode.common.util.top
+import ch.mikewong.adventofcode.common.extensions.toIntGrid
+import ch.mikewong.adventofcode.common.extensions.top
 
 class Day9 : Day<Int, Int>(2021, 9, "Smoke Basin") {
 

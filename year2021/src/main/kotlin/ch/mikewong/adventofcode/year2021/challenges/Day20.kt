@@ -2,7 +2,7 @@ package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Point
-import ch.mikewong.adventofcode.common.util.toCharGrid
+import ch.mikewong.adventofcode.common.extensions.toCharGrid
 
 class Day20 : Day<Int, Int>(2021, 20, "Trench Map") {
 

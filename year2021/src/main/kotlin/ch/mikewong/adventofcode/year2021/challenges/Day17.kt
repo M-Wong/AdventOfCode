@@ -2,8 +2,8 @@ package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Point
-import ch.mikewong.adventofcode.common.util.asInts
-import ch.mikewong.adventofcode.common.util.substringBetween
+import ch.mikewong.adventofcode.common.extensions.asInts
+import ch.mikewong.adventofcode.common.extensions.substringBetween
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.max

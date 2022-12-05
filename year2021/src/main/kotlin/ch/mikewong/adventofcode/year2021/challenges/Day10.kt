@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.middle
+import ch.mikewong.adventofcode.common.extensions.middle
 import java.util.ArrayDeque
 
 class Day10 : Day<Long, Long>(2021, 10, "Syntax Scoring") {

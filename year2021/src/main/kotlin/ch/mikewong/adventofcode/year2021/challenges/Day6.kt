@@ -1,8 +1,8 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.asInts
-import ch.mikewong.adventofcode.common.util.shiftLeft
+import ch.mikewong.adventofcode.common.extensions.asInts
+import ch.mikewong.adventofcode.common.extensions.shiftLeft
 
 class Day6 : Day<Long, Long>(2021, 6, "Lanternfish") {
 

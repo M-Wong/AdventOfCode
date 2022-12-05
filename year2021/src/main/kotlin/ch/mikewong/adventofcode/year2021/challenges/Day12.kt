@@ -2,8 +2,8 @@ package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Graph
-import ch.mikewong.adventofcode.common.util.isAllLowerCase
-import ch.mikewong.adventofcode.common.util.isAllUpperCase
+import ch.mikewong.adventofcode.common.extensions.isAllLowerCase
+import ch.mikewong.adventofcode.common.extensions.isAllUpperCase
 
 class Day12 : Day<Int, Int>(2021, 12, "Passage Pathing") {
 

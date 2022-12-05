@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.getCharactersInCommon
+import ch.mikewong.adventofcode.common.extensions.getCharactersInCommon
 
 class Day3 : Day<Int, Int>(2022, 3, "Rucksack Reorganization") {
 

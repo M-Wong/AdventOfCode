@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.asInts
+import ch.mikewong.adventofcode.common.extensions.asInts
 
 class Day1 : Day<Int, Int>(2022, 1, "Calorie Counting") {
 

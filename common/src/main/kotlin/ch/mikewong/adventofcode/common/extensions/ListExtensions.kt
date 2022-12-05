@@ -1,4 +1,4 @@
-package ch.mikewong.adventofcode.common.util
+package ch.mikewong.adventofcode.common.extensions
 
 import ch.mikewong.adventofcode.common.models.Point
 import java.util.*

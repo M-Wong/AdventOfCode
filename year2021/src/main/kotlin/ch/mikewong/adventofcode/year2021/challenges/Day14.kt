@@ -1,10 +1,10 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.increment
-import ch.mikewong.adventofcode.common.util.longCount
-import ch.mikewong.adventofcode.common.util.range
-import ch.mikewong.adventofcode.common.util.toPair
+import ch.mikewong.adventofcode.common.extensions.increment
+import ch.mikewong.adventofcode.common.extensions.longCount
+import ch.mikewong.adventofcode.common.extensions.range
+import ch.mikewong.adventofcode.common.extensions.toPair
 
 class Day14 : Day<Long, Long>(2021, 14, "Extended Polymerization") {
 

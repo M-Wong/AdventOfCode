@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.product
+import ch.mikewong.adventofcode.common.extensions.product
 
 class Day16 : Day<Int, Long>(2021, 16, "Packet Decoder") {
 

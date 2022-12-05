@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.set
+import ch.mikewong.adventofcode.common.extensions.set
 import java.util.*
 import kotlin.math.abs
 

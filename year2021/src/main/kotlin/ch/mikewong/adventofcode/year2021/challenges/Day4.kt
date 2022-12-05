@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.util.asInts
+import ch.mikewong.adventofcode.common.extensions.asInts
 
 class Day4 : Day<Int, Int>(2021, 4, "Giant Squid") {
 

@@ -2,7 +2,7 @@ package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Cuboid
-import ch.mikewong.adventofcode.common.util.asLongs
+import ch.mikewong.adventofcode.common.extensions.asLongs
 
 class Day22 : Day<Long, Long>(2021, 22, "Reactor Reboot") {
 
