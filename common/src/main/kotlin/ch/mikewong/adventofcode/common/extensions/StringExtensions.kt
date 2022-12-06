@@ -32,3 +32,8 @@ fun String.substringBetween(startDelimiter: String, endDelimiter: String, defaul
 		defaultValue
 	}
 }
+
+/**
+ * Returns true if all characters in this string are unique, false if any character appears more than once
+ */
+fun String.allUnique() = all(hashSetOf<Char>()::add)

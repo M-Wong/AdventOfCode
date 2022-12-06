@@ -9,14 +9,18 @@ abstract class BaseRunner {
 	abstract val days: List<Day<*, *>>
 
 	protected fun execute() {
-		when (val mode = runMode) {
-			is RunMode.AllDays -> days.forEach {
-				runSingleDay(it)
-				println()
+		val time = measureNanoTime {
+			when (val mode = runMode) {
+				is RunMode.AllDays -> days.forEach {
+					runSingleDay(it)
+					println()
+				}
+
+				is RunMode.SingleDay -> runSingleDay(days[mode.day - 1])
+				is RunMode.LastDay -> runSingleDay(days.last())
 			}
-			is RunMode.SingleDay -> runSingleDay(days[mode.day - 1])
-			is RunMode.LastDay -> runSingleDay(days.last())
-		}
+		} / 1_000_000f
+		println("Execution took $time ms in total")
 	}
 
 	private fun runSingleDay(day: Day<*, *>) {

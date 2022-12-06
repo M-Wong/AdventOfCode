@@ -2,8 +2,9 @@ package ch.mikewong.adventofcode.common.challenges
 
 import ch.mikewong.adventofcode.common.util.InputUtil
 
-abstract class Day<O, T>(val year:Int, val index: Int, val title: String) {
+abstract class Day<O, T>(private val year: Int, val index: Int, val title: String) {
 
+	protected val input: String by lazy { InputUtil.readInput(index) }
 	protected val inputLines: List<String> by lazy { InputUtil.readInputLines(index) }
 	protected val inputGroups: List<List<String>> by lazy { InputUtil.readInputGroups(index) }
 
