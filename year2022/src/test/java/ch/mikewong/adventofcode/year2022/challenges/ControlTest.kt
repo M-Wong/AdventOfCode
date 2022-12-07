@@ -26,12 +26,13 @@ class ControlTest {
 private class DayProvider : ArgumentsProvider {
 	override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> {
 		return Stream.of(
-			ControlAnswer(Day1(), 24000, 45000),
-			ControlAnswer(Day2(), 15, 12),
-			ControlAnswer(Day3(), 157, 70),
-			ControlAnswer(Day4(), 2, 4),
-			ControlAnswer(Day5(), "CMZ", "MCD"),
-			ControlAnswer(Day6(), 7, 19),
+//			ControlAnswer(Day1(), 24000, 45000),
+//			ControlAnswer(Day2(), 15, 12),
+//			ControlAnswer(Day3(), 157, 70),
+//			ControlAnswer(Day4(), 2, 4),
+//			ControlAnswer(Day5(), "CMZ", "MCD"),
+//			ControlAnswer(Day6(), 7, 19),
+			ControlAnswer(Day7(), 95437, 24933642),
 		).map { Arguments.of(Named.of(it.day.toString(), it)) }
 	}
 }

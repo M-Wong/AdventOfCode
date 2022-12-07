@@ -7,6 +7,7 @@ import ch.mikewong.adventofcode.year2022.challenges.Day3
 import ch.mikewong.adventofcode.year2022.challenges.Day4
 import ch.mikewong.adventofcode.year2022.challenges.Day5
 import ch.mikewong.adventofcode.year2022.challenges.Day6
+import ch.mikewong.adventofcode.year2022.challenges.Day7
 
 object Runner : BaseRunner() {
 
@@ -18,6 +19,7 @@ object Runner : BaseRunner() {
 		Day4(),
 		Day5(),
 		Day6(),
+		Day7(),
 	)
 
 	@JvmStatic
