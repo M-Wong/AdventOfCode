@@ -151,3 +151,10 @@ fun List<String>.getCharactersInCommon(): Set<Char> {
 	}
 	return retainer
 }
+
+/**
+ * Return the product of all integers in this list
+ */
+fun List<Int>.product(): Int {
+	return this.reduce { acc, i -> acc * i }
+}
