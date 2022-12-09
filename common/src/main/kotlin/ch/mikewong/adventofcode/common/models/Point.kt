@@ -1,5 +1,7 @@
 package ch.mikewong.adventofcode.common.models
 
+import java.lang.Math.abs
+
 /**
  * x == row
  * y == column
@@ -37,9 +39,13 @@ data class Point(val x: Int, val y: Int) {
 
 	fun isWithin(topLeft: Point, bottomRight: Point) = this.x in topLeft.x..bottomRight.x && this.y in bottomRight.y..topLeft.y
 
-	fun move(direction: Direction) = Point(this.x + direction.deltaX, this.y + direction.deltaY)
+	fun move(direction: Direction) = move(direction.deltaX, direction.deltaY)
+
+	fun move(deltaX: Int, deltaY: Int) = Point(this.x + deltaX, this.y + deltaY)
 
 	fun coerceIn(xRange: IntRange, yRange: IntRange) = Point(this.x.coerceIn(xRange), this.y.coerceIn(yRange))
+
+	fun isAdjacentTo(other: Point) = abs(this.x - other.x) <= 1 && abs(this.y - other.y) <= 1
 
 	fun wrapAround(xRange: IntRange, yRange: IntRange) = Point(
 		when {
