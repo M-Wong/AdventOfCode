@@ -4,76 +4,51 @@ import ch.mikewong.adventofcode.common.challenges.Day
 
 class Day10 : Day<Int, String>(2022, 10, "Cathode-Ray Tube") {
 
+	private val cycles by lazy { computeCycles() }
+
 	override fun partOne(): Int {
-		var currentCycleCount = 1
-		var registerValue = 1
-		var totalSignalStrength = 0
-		val interestingCycles = listOf(20, 60, 100, 140, 180, 220)
-
-		inputLines.forEach {  line ->
-			currentCycleCount++
-
-			when (val instruction = Instruction.fromString(line)) {
-				is Instruction.Noop -> {} // NOOP
-				is Instruction.AddX -> {
-					// Check the signal strength in the middle of the add instruction
-					if (currentCycleCount in interestingCycles) {
-						totalSignalStrength += currentCycleCount * registerValue
-					}
-
-					currentCycleCount++
-					registerValue += instruction.value
-				}
-			}
-
-			// Check the signal strength at the end of the instruction
-			if (currentCycleCount in interestingCycles) {
-				totalSignalStrength += currentCycleCount * registerValue
-			}
-		}
-
-		return totalSignalStrength
+		val interestingCycles = 20 until cycles.size step 40
+		return interestingCycles.sumOf { cycles[it] * it }
 	}
 
 	override fun partTwo(): String {
-		val crt = Array(6) { Array(40) { "." } }
+		val crt = buildString {
+			cycles.drop(1).chunked(40).forEach { crtLine ->
+				crtLine.forEachIndexed { idx, cycle ->
+					if (idx % 40 in (cycle - 1 .. cycle + 1)) {
+						append("██")
+					} else {
+						append("░░")
+					}
+				}
+				appendLine()
+			}
+		}
+		println(crt)
+		return "RZHFGJCB"
+	}
 
-		var currentCycleCount = 1
+	private fun computeCycles(): List<Int> {
 		var registerValue = 1
 
-		crt[0][0] = "#"
+		// The program starts already at cycle 1 and register value 1, to offset the zero-index, add an irrelevant value at index 0
+		val cycles = mutableListOf(0, registerValue)
 
 		inputLines.forEach { line ->
 			when (val instruction = Instruction.fromString(line)) {
-				is Instruction.Noop -> {} // NOOP
+				is Instruction.Noop -> {
+					cycles.add(registerValue)
+				}
 				is Instruction.AddX -> {
-					// Check if the current register value should light up the CRT in the middle of the add instruction
-					if (currentCycleCount % 40 in (registerValue - 1 .. registerValue + 1)) {
-						val row = currentCycleCount / 40
-						val col = currentCycleCount % 40
-						crt[row][col] = "#"
-					}
-					currentCycleCount++
-
+					cycles.add(registerValue)
 					registerValue += instruction.value
+					cycles.add(registerValue)
 				}
 			}
-
-			// Check if the current register value should light up the CRT at the end of the instruction
-			if (currentCycleCount % 40 in (registerValue - 1 .. registerValue + 1)) {
-				val row = currentCycleCount / 40
-				val col = currentCycleCount % 40
-				crt[row][col] = "#"
-			}
-
-			currentCycleCount++
 		}
 
+		return cycles
 
-		crt.forEach { line ->
-			println(line.joinToString(""))
-		}
-		return "RZHFGJCB"
 	}
 
 	private sealed class Instruction {
