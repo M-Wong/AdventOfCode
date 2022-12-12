@@ -50,12 +50,23 @@ fun List<String>.toIntGrid(): Map<Point, Int> {
 }
 
 /**
- * Converts a list of strings to an char grid, where each character is mapped to a point with x/y (row/column) and its char value
+ * Converts a list of strings to a char grid, where each character is mapped to a point with x/y (row/column) and its char value
  */
 fun List<String>.toCharGrid(): Map<Point, Char> {
 	return mapIndexed { row, line ->
 		line.toCharArray().mapIndexed { column, char ->
 			Point(row, column) to char
+		}
+	}.flatten().toMap()
+}
+
+/**
+ * Converts a list of strings to a grid, where each character is converted to [T] using the [transform] lambda and mapped to a point with x/y (row/column)
+ */
+fun <T> List<String>.toGrid(transform: (Char) -> T): Map<Point, T> {
+	return mapIndexed { row, line ->
+		line.toCharArray().mapIndexed { column, char ->
+			Point(row, column) to transform(char)
 		}
 	}.flatten().toMap()
 }
