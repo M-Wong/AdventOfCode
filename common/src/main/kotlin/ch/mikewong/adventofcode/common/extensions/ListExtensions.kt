@@ -63,10 +63,11 @@ fun List<String>.toCharGrid(): Map<Point, Char> {
 /**
  * Converts a list of strings to a grid, where each character is converted to [T] using the [transform] lambda and mapped to a point with x/y (row/column)
  */
-fun <T> List<String>.toGrid(transform: (Char) -> T): Map<Point, T> {
+fun <T> List<String>.toGrid(transform: (Point, Char) -> T): Map<Point, T> {
 	return mapIndexed { row, line ->
 		line.toCharArray().mapIndexed { column, char ->
-			Point(row, column) to transform(char)
+			val point = Point(row, column)
+			point to transform(point, char)
 		}
 	}.flatten().toMap()
 }
