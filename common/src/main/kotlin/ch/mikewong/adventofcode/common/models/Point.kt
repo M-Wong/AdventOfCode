@@ -1,12 +1,18 @@
 package ch.mikewong.adventofcode.common.models
 
-import java.lang.Math.abs
+import ch.mikewong.adventofcode.common.extensions.pow
+import kotlin.math.abs
+import kotlin.math.sqrt
 
 /**
  * x == row
  * y == column
  */
 data class Point(val x: Int, val y: Int) {
+
+	override fun toString(): String {
+		return "($x,$y)"
+	}
 
 	/**
 	 * Return directly adjacent points (top, right, bottom, left)
@@ -59,4 +65,13 @@ data class Point(val x: Int, val y: Int) {
 			else -> this.y
 		},
 	)
+
+	fun distanceTo(other: Point): Double {
+		return sqrt((x - other.x).pow(2) + (y - other.y).pow(2))
+	}
+
+	fun manhattanDistanceTo(other: Point): Int {
+		return abs(other.x - x) + abs(other.y - y)
+	}
+
 }

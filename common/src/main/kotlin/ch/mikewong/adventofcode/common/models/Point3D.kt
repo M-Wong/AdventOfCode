@@ -1,8 +1,8 @@
 package ch.mikewong.adventofcode.common.models
 
 import ch.mikewong.adventofcode.common.extensions.asInts
+import ch.mikewong.adventofcode.common.extensions.pow
 import kotlin.math.abs
-import kotlin.math.pow
 import kotlin.math.sqrt
 
 data class Point3D(val x: Int, val y: Int, val z: Int) {
@@ -29,7 +29,5 @@ data class Point3D(val x: Int, val y: Int, val z: Int) {
 	fun manhattanDistanceTo(other: Point3D): Int {
 		return abs(other.x - x) + abs(other.y -y) + abs(other.z - z)
 	}
-
-	private fun Int.pow(n: Int) = this.toDouble().pow(n)
 
 }
