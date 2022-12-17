@@ -1,117 +1,97 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.extensions.set
+import java.util.*
 import kotlin.math.ceil
 
-/**
- * Part 1: 1653
- * Part 2: 2223
- */
 class Day16 : Day<Int, Int>(2022, 16, "Proboscidea Volcanium") {
 
 	private val valves by lazy { readInput() }
 	private val startValve = "AA"
 
-	override fun partOne(): Int {
-		val timer = 30
+	override fun partOne() = findMaxPressure(valves, 1, 30)
 
-		// Keep a list of valve states, initializing with the starting valve, 0 release pressure and no open valves
-		var states = mutableSetOf(ValveState(startValve, 0, emptySet()))
+	override fun partTwo() = findMaxPressure(valves, 2, 26)
 
-		// Cache the maximum pressure value of combinations between valves and open valves
-		val maxPressureCache = mutableMapOf<Pair<String, Set<String>>, Int>()
-
-		// Start the timer down to 1, because the
-		(timer downTo 1).forEach { t ->
-			val newStates = mutableSetOf<ValveState>()
-
-			// For each existing valve state, iterate through and create new states
-			states.forEach { state ->
-				val key = state.valve to state.openValves
-
-				// Only process if the maximum pressure has not yet been calculated or is lower than the one of the current valve state
-				if (maxPressureCache[key] == null || state.releasedPressure > maxPressureCache[key]!!) {
-					maxPressureCache[key] = state.releasedPressure
-
-					val valve = valves[state.valve]!!
-
-					// If the current valve is not open, and it has a non-zero flow rate, create a new valve state with the updated released pressure
-					if (!state.openValves.contains(state.valve) && valve.flowRate > 0) {
-						val newOpenValves = state.openValves.plus(state.valve)
-						// The released pressure of the new valve state is the previously released pressure plus the valve flow rate
-						// multiplied with the current timer (minus 1 because that state is only checked in the next iteration) to
-						// calculate the pressure release until the end of the eruption
-						val newValveState = ValveState(state.valve, state.releasedPressure + valve.flowRate * (t - 1), newOpenValves)
-						newStates.add(newValveState)
-					}
-
-					// For each connection to another valve, create a new valve state for that connection
-					valve.connections.forEach {
-						newStates.add(ValveState(it, state.releasedPressure, state.openValves))
-					}
-				}
-			}
-
-			states = newStates
-		}
-
-		return states.maxOf { it.releasedPressure }
-	}
-
-	override fun partTwo(): Int {
-		return findMaxPressure(valves, startValve, 2, 26).values.max()
-	}
-
-	data class Snapshot(val keys: List<String>, val releasedPressure: Int, val opened: Set<String>, val time: Int)
-	private fun findMaxPressure(maps: Map<String, Valve>, startValve: String, playerCount: Int = 1, timer: Int = 30): Map<List<String>, Int> {
+	private fun findMaxPressure(valves: Map<String, Valve>, playerCount: Int, timer: Int): Int {
+		// All players start at the same valve
 		val start = List(playerCount) { startValve }
 
-		val releasedPressure = mutableMapOf(start to 0)
-		val queue = ArrayDeque(listOf(Snapshot(start, 0, emptySet(), timer * playerCount)))
-		val temporaryQueue = mutableSetOf<Snapshot>()
+		// Cache from player positions to released pressure
+		val maxReleasedPressuresForPositions = mutableMapOf(start to 0)
 
-		fun addToBucket(snap: Snapshot) {
-			if (snap.keys !in releasedPressure || snap.keys.filter { it !in snap.opened }.distinct().sumOf {
-					maps.getValue(it).flowRate
-				}.let { it * (snap.time - 1) } + snap.releasedPressure >= releasedPressure.getValue(snap.keys)
-			) {
-				temporaryQueue.add(snap)
-			}
-		}
+		// Queue with an initial valve state (multiply the timer with the player count to get an alternating move pattern)
+		val queue = ArrayDeque(listOf(ValveState(start, 0, emptySet(), timer * playerCount)))
 
-		while (queue.isNotEmpty() || temporaryQueue.isNotEmpty()) {
+		// Set of new valve states that arise from processing the previous queue
+		val newValveStates = mutableSetOf<ValveState>()
+
+		while (queue.isNotEmpty() || newValveStates.isNotEmpty()) {
 			if (queue.isEmpty()) {
-				queue.addAll(temporaryQueue)
-				temporaryQueue.clear()
+				queue.addAll(newValveStates)
+				newValveStates.clear()
 			}
 
-			val (current, est, opened, rem) = queue.removeFirst()
+			val state = queue.removeFirst()
 
-			val index = rem % playerCount
-			val nodes = current.map(maps::getValue)
-			val time = ceil(rem.toFloat() / playerCount).toInt()
+			// The player that is about to move or open a valve and the valve he is currently at
+			val playerIndex = state.cumulativeRemainingTime % playerCount
+			val valveAtPlayerPosition = valves.getValue(state.playerPositions[playerIndex])
+
+			// The actual time left
+			val time = ceil(state.cumulativeRemainingTime.toFloat() / playerCount).toInt()
+
+			// The currently known and the new maximum released pressure for the current player positions
+			val currentMaxReleasedPressure = maxReleasedPressuresForPositions.getOrDefault(state.playerPositions, 0)
+			val newReleasedPressure = state.releasedPressure + valveAtPlayerPosition.flowRate * (time - 1)
+
 			when {
-				rem <= 0 -> continue // finish
-				// no value to open
-				nodes[index].flowRate == 0 -> Unit
-				// already opened
-				current[index] in opened -> Unit
-				est + nodes[index].flowRate * (time - 1) > releasedPressure.getOrDefault(current, 0) -> {
-					val v = est + nodes[index].flowRate * (time - 1)
-					releasedPressure[current] = v
-					addToBucket(Snapshot(current, v, opened + current[index], rem - 1))
+				state.cumulativeRemainingTime <= 0 -> {
+					// No time left, continue next state in the queue
+					continue
 				}
-
-				else -> Unit
+				valveAtPlayerPosition.flowRate == 0 -> {
+					// Ignore valves with no flow rate
+				}
+				state.playerPositions[playerIndex] in state.openValves -> {
+					// Ignore valve that is aleady open
+				}
+				newReleasedPressure > currentMaxReleasedPressure -> {
+					// The new calculated released pressure is higher than the currently known max for these player positions
+					maxReleasedPressuresForPositions[state.playerPositions] = newReleasedPressure
+					val newValveState = ValveState(state.playerPositions, newReleasedPressure, state.openValves + valveAtPlayerPosition.name, state.cumulativeRemainingTime - 1)
+					newValveStates.addPotentialNewState(newValveState, maxReleasedPressuresForPositions)
+				}
+				else -> {
+					// Ignore valves that did not release more pressure than a previous path
+				}
 			}
-			nodes[index].connections.forEach {
-				val next = current.toMutableList().apply {
-					this[index] = it
-				}
-				addToBucket(Snapshot(next, est, opened, rem - 1))
+
+			// For each connection to another valve, create a new valve state with the current player moving to that valve
+			valveAtPlayerPosition.connections.forEach { valveKey ->
+				val newPlayerPositions = state.playerPositions.set(playerIndex, valveKey)
+				val newValveState = ValveState(newPlayerPositions, state.releasedPressure, state.openValves, state.cumulativeRemainingTime - 1)
+				newValveStates.addPotentialNewState(newValveState, maxReleasedPressuresForPositions)
 			}
 		}
-		return releasedPressure
+
+		return maxReleasedPressuresForPositions.values.max()
+	}
+
+	/**
+	 * Adds [state] to this set of ValveStates if is has no currently known max released pressure or has a potential higher pressure release than before
+	 */
+	private fun MutableSet<ValveState>.addPotentialNewState(state: ValveState, maxReleasedPressuresForPositions: Map<List<String>, Int>) {
+		val playerPositionsWithClosedValves = state.playerPositions.filter { it !in state.openValves }.distinct()
+		val releasedPressure = playerPositionsWithClosedValves.sumOf { valves.getValue(it).flowRate } * (state.cumulativeRemainingTime - 1)
+
+		if (
+			state.playerPositions !in maxReleasedPressuresForPositions
+			|| releasedPressure + state.releasedPressure >= maxReleasedPressuresForPositions.getValue(state.playerPositions)
+		) {
+			this.add(state)
+		}
 	}
 
 	private fun readInput(): Map<String, Valve> {
@@ -127,5 +107,13 @@ class Day16 : Day<Int, Int>(2022, 16, "Proboscidea Volcanium") {
 
 	private data class Valve(val name: String, val flowRate: Int, val connections: Set<String>)
 
-	private data class ValveState(val valve: String, val releasedPressure: Int, val openValves: Set<String>)
+	private data class ValveState(
+		val playerPositions: List<String>,
+		val releasedPressure: Int,
+		val openValves: Set<String>,
+		val cumulativeRemainingTime: Int,
+	) : Comparable<ValveState> {
+		override fun compareTo(other: ValveState) = this.releasedPressure.compareTo(other.releasedPressure) * -1
+	}
+
 }
