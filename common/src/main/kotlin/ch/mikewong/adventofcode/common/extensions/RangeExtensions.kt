@@ -1,10 +1,10 @@
 package ch.mikewong.adventofcode.common.extensions
 
-import kotlin.math.min
 import kotlin.math.max
+import kotlin.math.min
 
 /**
- * Returns true if there is an overlap between [this] and the [other] IntRange
+ * @return True if there is an overlap between [this] and the [other] IntRange
  */
 fun IntRange.overlapsWith(other: IntRange, endInclusive: Boolean = true): Boolean {
 	val overlap = min(last, other.last) - max(first, other.first)
@@ -17,3 +17,13 @@ fun IntRange.overlapsWith(other: IntRange, endInclusive: Boolean = true): Boolea
 fun IntRange.fullyOverlapsWith(other: IntRange): Boolean {
 	return (first >= other.first && last <= other.last) || (other.first >= first && other.last <= last)
 }
+
+/**
+ * @return The absolute range value
+ */
+fun IntRange.abs() = last - first
+
+/**
+ * @return The absolute range value
+ */
+fun LongRange.abs() = last - first

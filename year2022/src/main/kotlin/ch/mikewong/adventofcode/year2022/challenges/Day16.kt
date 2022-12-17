@@ -1,6 +1,7 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
+import kotlin.math.ceil
 
 /**
  * Part 1: 1653
@@ -58,7 +59,59 @@ class Day16 : Day<Int, Int>(2022, 16, "Proboscidea Volcanium") {
 	}
 
 	override fun partTwo(): Int {
-		return 0
+		return findMaxPressure(valves, startValve, 2, 26).values.max()
+	}
+
+	data class Snapshot(val keys: List<String>, val releasedPressure: Int, val opened: Set<String>, val time: Int)
+	private fun findMaxPressure(maps: Map<String, Valve>, startValve: String, playerCount: Int = 1, timer: Int = 30): Map<List<String>, Int> {
+		val start = List(playerCount) { startValve }
+
+		val releasedPressure = mutableMapOf(start to 0)
+		val queue = ArrayDeque(listOf(Snapshot(start, 0, emptySet(), timer * playerCount)))
+		val temporaryQueue = mutableSetOf<Snapshot>()
+
+		fun addToBucket(snap: Snapshot) {
+			if (snap.keys !in releasedPressure || snap.keys.filter { it !in snap.opened }.distinct().sumOf {
+					maps.getValue(it).flowRate
+				}.let { it * (snap.time - 1) } + snap.releasedPressure >= releasedPressure.getValue(snap.keys)
+			) {
+				temporaryQueue.add(snap)
+			}
+		}
+
+		while (queue.isNotEmpty() || temporaryQueue.isNotEmpty()) {
+			if (queue.isEmpty()) {
+				queue.addAll(temporaryQueue)
+				temporaryQueue.clear()
+			}
+
+			val (current, est, opened, rem) = queue.removeFirst()
+
+			val index = rem % playerCount
+			val nodes = current.map(maps::getValue)
+			val time = ceil(rem.toFloat() / playerCount).toInt()
+			when {
+				rem <= 0 -> continue // finish
+				// no value to open
+				nodes[index].flowRate == 0 -> Unit
+				// already opened
+				current[index] in opened -> Unit
+				est + nodes[index].flowRate * (time - 1) > releasedPressure.getOrDefault(current, 0) -> {
+					val v = est + nodes[index].flowRate * (time - 1)
+					releasedPressure[current] = v
+					addToBucket(Snapshot(current, v, opened + current[index], rem - 1))
+				}
+
+				else -> Unit
+			}
+			nodes[index].connections.forEach {
+				val next = current.toMutableList().apply {
+					this[index] = it
+				}
+				addToBucket(Snapshot(next, est, opened, rem - 1))
+			}
+		}
+		return releasedPressure
 	}
 
 	private fun readInput(): Map<String, Valve> {

@@ -170,3 +170,13 @@ fun List<String>.getCharactersInCommon(): Set<Char> {
 fun List<Int>.product(): Int {
 	return this.reduce { acc, i -> acc * i }
 }
+
+/**
+ * @return The first element of [this] list or [default] if it is empty
+ */
+fun <T> List<T>.firstOr(default: T) = this.firstOrNull() ?: default
+
+/**
+ * @return The last element of [this] list or [default] if it is empty
+ */
+fun <T> List<T>.lastOr(default: T) = this.lastOrNull() ?: default
