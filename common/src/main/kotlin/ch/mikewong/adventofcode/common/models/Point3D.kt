@@ -27,7 +27,16 @@ data class Point3D(val x: Int, val y: Int, val z: Int) {
 	}
 
 	fun manhattanDistanceTo(other: Point3D): Int {
-		return abs(other.x - x) + abs(other.y -y) + abs(other.z - z)
+		return abs(other.x - x) + abs(other.y - y) + abs(other.z - z)
 	}
+
+	fun adjacent() = setOf(
+		Point3D(x + 1, y, z),
+		Point3D(x - 1, y, z),
+		Point3D(x, y + 1, z),
+		Point3D(x, y - 1, z),
+		Point3D(x, y, z + 1),
+		Point3D(x, y, z - 1),
+	)
 
 }
