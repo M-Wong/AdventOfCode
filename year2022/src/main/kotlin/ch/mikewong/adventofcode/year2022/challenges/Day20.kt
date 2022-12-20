@@ -2,8 +2,6 @@ package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.extensions.asLongs
-import ch.mikewong.adventofcode.common.extensions.wrapAroundIndex
-import java.util.*
 
 class Day20 : Day<Long, Long>(2022, 20, "Grove Positioning System") {
 
@@ -24,7 +22,7 @@ class Day20 : Day<Long, Long>(2022, 20, "Grove Positioning System") {
 
 	private fun getGroveCoordinates(coordinates: List<Coordinate>): Long {
 		val indexOfZero = coordinates.indexOfFirst { it.value == 0L }
-		val indices = listOf(1000, 2000, 3000)
+		val indices = listOf(1000L, 2000L, 3000L)
 		return indices.sumOf { idx ->
 			val actualIndex = coordinates.wrapAroundIndex(indexOfZero + idx)
 			coordinates[actualIndex].value
@@ -38,15 +36,15 @@ class Day20 : Day<Long, Long>(2022, 20, "Grove Positioning System") {
 		val coordinates = originalCoordinates.toMutableList()
 		repeat(times) {
 			originalCoordinates.forEach { ogCoord ->
-				// Find the index of the original coordinate
-				val indexOfCoord = coordinates.indexOfFirst { it.originalIndex == ogCoord.originalIndex }
+				if (ogCoord.value != 0L) {
+					// Find the index of the original coordinate
+					val indexOfCoord = coordinates.indexOfFirst { it.originalIndex == ogCoord.originalIndex }
 
-				// Remove the coordinate from the list, then rotate the list by the coordinate value, insert the coordinate again and rotate the same amount back
-				val item = coordinates.removeAt(indexOfCoord)
-				val rotation = item.value % coordinates.size
-				Collections.rotate(coordinates, rotation.toInt() * -1)
-				coordinates.add(indexOfCoord, item)
-				Collections.rotate(coordinates, rotation.toInt())
+					// Remove the coordinate from the list, calculate the new index and insert it at that position
+					val coordinate = coordinates.removeAt(indexOfCoord)
+					val newIndex = coordinates.wrapAroundIndex(indexOfCoord + coordinate.value)
+					coordinates.add(newIndex, coordinate)
+				}
 			}
 		}
 		return coordinates
@@ -54,6 +52,15 @@ class Day20 : Day<Long, Long>(2022, 20, "Grove Positioning System") {
 
 	private fun readInput(): List<Coordinate> {
 		return inputLines.asLongs().mapIndexed { index, value -> Coordinate(index, value) }
+	}
+
+	private fun <T> List<T>.wrapAroundIndex(index: Long): Int {
+		if (isEmpty()) throw NoSuchElementException()
+		return when (index) {
+			0L -> 0
+			in indices -> index.toInt()
+			else -> index.mod(size) // Note that .mod() is different to %: https://medium.com/@alexvanyo/kotlin-functions-rem-and-mod-fa2e865304c3
+		}
 	}
 
 	private data class Coordinate(val originalIndex: Int, val value: Long)

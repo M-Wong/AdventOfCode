@@ -187,23 +187,3 @@ fun <T> List<T>.firstOr(default: T) = this.firstOrNull() ?: default
  * @return The last element of [this] list or [default] if it is empty
  */
 fun <T> List<T>.lastOr(default: T) = this.lastOrNull() ?: default
-
-/**
- * Wraps the [index] around the list size. This handles the following cases:
- * - [index] is zero -> return zero
- * - [index] needs no wrap-around -> return same index
- * - [index] is larger than the list size -> modulo the index with the size
- * - [index] is less than zero -> modulo the index with the size and add to the size (since e.g. -2 % 5 == -2 in Kotlin)
- *
- * @throws NoSuchElementException If the list is empty
- * @return The index wrapped around the list size
- */
-fun <T> List<T>.wrapAroundIndex(index: Int): Int {
-	if (isEmpty()) throw NoSuchElementException()
-	return when {
-		index == 0 -> 0
-		index in indices -> index
-		index > lastIndex -> index % size
-		else -> size + (index % size)
-	}
-}
