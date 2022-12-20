@@ -26,6 +26,7 @@ object Runner : BaseRunner() {
 		Day17(),
 		Day18(),
 		Day19(),
+		Day20(),
 	)
 
 	@JvmStatic
