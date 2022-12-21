@@ -3,7 +3,7 @@ package ch.mikewong.adventofcode.year2022.challenges
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.ArithmeticOperation
 
-class Day21 : Day<Long, Long>(2022, 21, "") {
+class Day21 : Day<Long, Long>(2022, 21, "Monkey Math") {
 
 	private val monkeys by lazy { readInput() }
 	private val startMonkey = "root"
