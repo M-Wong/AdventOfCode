@@ -1,8 +1,10 @@
 package ch.mikewong.adventofcode.common.models
 
+import ch.mikewong.adventofcode.common.extensions.abs
+
 data class Area(val topLeft: Point, val bottomRight: Point) {
-	private val xRange = topLeft.x .. bottomRight.x
-	private val yRange = topLeft.y .. bottomRight.y
+	private val xRange = topLeft.x..bottomRight.x
+	private val yRange = topLeft.y..bottomRight.y
 
 	/**
 	 * @return True if the [point] is part of this area
@@ -10,7 +12,7 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 	fun contains(point: Point) = point.x in xRange && point.y in yRange
 
 	/**
-	 * @return True if the [point] is part of this area and lies on the edges of the are
+	 * @return True if the [point] is part of this area and lies on the edges of the area
 	 */
 	fun isOnEdge(point: Point, direction: Direction) = when (direction) {
 		Direction.NORTH_WEST -> point == topLeft
@@ -23,4 +25,9 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 		Direction.SOUTH -> point.x == xRange.last && point.y in yRange
 		Direction.SOUTH_EAST -> point == bottomRight
 	}
+
+	/**
+	 * @return The total number of points included in this area
+	 */
+	fun surfaceArea() = (xRange.abs() + 1) * (yRange.abs() + 1)
 }

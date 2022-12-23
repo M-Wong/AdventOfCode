@@ -26,6 +26,8 @@ data class Point(val x: Int, val y: Int) {
 
 	/**
 	 * Return directly surrounding points
+	 * @param includeItself True to include the center position
+	 * @param filter An optional filter, removing any direction for which the predicate does not apply
 	 */
 	fun surrounding(includeItself: Boolean = false, filter: (Point) -> Boolean = { true }) = listOfNotNull(
 		move(Direction.NORTH_WEST),
