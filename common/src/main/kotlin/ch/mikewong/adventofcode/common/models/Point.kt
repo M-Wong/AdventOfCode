@@ -55,6 +55,8 @@ data class Point(val x: Int, val y: Int) {
 
 	fun isAdjacentTo(other: Point) = abs(this.x - other.x) <= 1 && abs(this.y - other.y) <= 1
 
+	fun wrapAround(area: Area) = wrapAround(area.xRange, area.yRange)
+
 	fun wrapAround(xRange: IntRange, yRange: IntRange) = Point(
 		when {
 			this.x > xRange.last -> xRange.first
