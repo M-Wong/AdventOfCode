@@ -4,7 +4,7 @@ import ch.mikewong.adventofcode.common.challenges.Day
 
 class Day2 : Day<Int, Int>(2021, 2, "Dive!") {
 
-	private val input = inputLines.map {
+	private val moves = inputLines.map {
 		val parts = it.split(" ")
 		Move(Direction.valueOf(parts.first().uppercase()), parts.last().toInt())
 	}
@@ -13,7 +13,7 @@ class Day2 : Day<Int, Int>(2021, 2, "Dive!") {
 		var horizontalPosition = 0
 		var verticalPosition = 0
 
-		input.forEach {
+		moves.forEach {
 			when (it.direction) {
 				Direction.FORWARD -> horizontalPosition += it.distance
 				Direction.UP -> verticalPosition -= it.distance
@@ -29,7 +29,7 @@ class Day2 : Day<Int, Int>(2021, 2, "Dive!") {
 		var horizontalPosition = 0
 		var verticalPosition = 0
 
-		input.forEach {
+		moves.forEach {
 			when (it.direction) {
 				Direction.FORWARD -> {
 					horizontalPosition += it.distance
