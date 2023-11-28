@@ -161,10 +161,10 @@ class Day23 : Day<Int, Int>(2021, 23, "Amphipod") {
 	sealed class Amphipod(private val identifier: String, val energyConsumption: Int) {
 		override fun toString() = identifier
 
-		object Amber : Amphipod("A", 1)
-		object Bronze : Amphipod("B", 10)
-		object Copper : Amphipod("C", 100)
-		object Desert : Amphipod("D", 1000)
+		data object Amber : Amphipod("A", 1)
+		data object Bronze : Amphipod("B", 10)
+		data object Copper : Amphipod("C", 100)
+		data object Desert : Amphipod("D", 1000)
 	}
 
 	private data class Burrow(val size: Int, val occupants: List<Amphipod>, val entrance: Int, val accepts: (Amphipod) -> Boolean) {

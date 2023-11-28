@@ -98,3 +98,4 @@ modules.xml
 
 build
 .gradle
+local.properties

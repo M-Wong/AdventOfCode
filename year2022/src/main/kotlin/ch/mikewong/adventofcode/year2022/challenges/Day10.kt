@@ -60,7 +60,7 @@ class Day10 : Day<Int, String>(2022, 10, "Cathode-Ray Tube") {
 			}
 		}
 
-		object Noop : Instruction()
+		data object Noop : Instruction()
 		data class AddX(val value: Int) : Instruction()
 	}
 }

@@ -98,7 +98,7 @@ class Day11 : Day<Long, Long>(2022, 11, "Monkey in the Middle") {
 	}
 
 	private sealed class Value {
-		object Old : Value()
+		data object Old : Value()
 		data class Number(val value: Long) : Value()
 	}
 

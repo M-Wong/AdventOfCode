@@ -24,7 +24,8 @@ abstract class BaseRunner {
 	}
 
 	private fun runSingleDay(day: Day<*, *>) {
-		println("--- Day ${day.index}: ${day.title} ---")
+		println("--- Day ${day.day}: ${day.title} ---")
+		day.initialize()
 		runAndMeasurePart(1) { day.partOne() }
 		runAndMeasurePart(2) { day.partTwo() }
 	}
@@ -39,8 +40,8 @@ abstract class BaseRunner {
 
 
 	sealed class RunMode {
-		object AllDays : RunMode()
+		data object AllDays : RunMode()
 		data class SingleDay(val day: Int) : RunMode()
-		object LastDay : RunMode()
+		data object LastDay : RunMode()
 	}
 }

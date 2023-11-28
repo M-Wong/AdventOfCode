@@ -1,7 +1,6 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.test.ControlAnswer
-import ch.mikewong.adventofcode.year2021.challenges.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Named
 import org.junit.jupiter.api.extension.ExtensionContext
@@ -17,10 +16,12 @@ class ControlTest {
 	@ArgumentsSource(DayProvider::class)
 	fun controlAnswers(answer: ControlAnswer<*, *>) {
 		val actualPartOne = answer.day.partOne()
-		Assertions.assertEquals(answer.expectedAnswerPartOne, actualPartOne, "Day ${answer.day.index} - Part 1 failed the control")
+		Assertions.assertEquals(answer.expectedAnswerPartOne, actualPartOne, "Day ${answer.day.day} - Part 1 failed the control")
+		println("Day ${answer.day} - Part 1 passed the control ($actualPartOne == ${answer.expectedAnswerPartOne})")
 
 		val actualPartTwo = answer.day.partTwo()
-		Assertions.assertEquals(answer.expectedAnswerPartTwo, actualPartTwo, "Day ${answer.day.index} - Part 2 failed the control")
+		Assertions.assertEquals(answer.expectedAnswerPartTwo, actualPartTwo, "Day ${answer.day.day} - Part 2 failed the control")
+		println("Day ${answer.day} - Part 2 passed the control ($actualPartTwo == ${answer.expectedAnswerPartTwo})")
 	}
 }
 

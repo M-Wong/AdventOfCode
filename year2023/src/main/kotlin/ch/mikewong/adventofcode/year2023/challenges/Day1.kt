@@ -1,7 +1,6 @@
 package ch.mikewong.adventofcode.year2023.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.asInts
 
 class Day1 : Day<Int, Int>(2023, 1, "TODO") {
 

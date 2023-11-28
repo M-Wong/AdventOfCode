@@ -1,31 +1,7 @@
 package ch.mikewong.adventofcode.year2021
 
 import ch.mikewong.adventofcode.common.BaseRunner
-import ch.mikewong.adventofcode.year2021.challenges.Day1
-import ch.mikewong.adventofcode.year2021.challenges.Day10
-import ch.mikewong.adventofcode.year2021.challenges.Day11
-import ch.mikewong.adventofcode.year2021.challenges.Day12
-import ch.mikewong.adventofcode.year2021.challenges.Day13
-import ch.mikewong.adventofcode.year2021.challenges.Day14
-import ch.mikewong.adventofcode.year2021.challenges.Day15
-import ch.mikewong.adventofcode.year2021.challenges.Day16
-import ch.mikewong.adventofcode.year2021.challenges.Day17
-import ch.mikewong.adventofcode.year2021.challenges.Day18
-import ch.mikewong.adventofcode.year2021.challenges.Day19
-import ch.mikewong.adventofcode.year2021.challenges.Day2
-import ch.mikewong.adventofcode.year2021.challenges.Day20
-import ch.mikewong.adventofcode.year2021.challenges.Day21
-import ch.mikewong.adventofcode.year2021.challenges.Day22
-import ch.mikewong.adventofcode.year2021.challenges.Day23
-import ch.mikewong.adventofcode.year2021.challenges.Day24
-import ch.mikewong.adventofcode.year2021.challenges.Day25
-import ch.mikewong.adventofcode.year2021.challenges.Day3
-import ch.mikewong.adventofcode.year2021.challenges.Day4
-import ch.mikewong.adventofcode.year2021.challenges.Day5
-import ch.mikewong.adventofcode.year2021.challenges.Day6
-import ch.mikewong.adventofcode.year2021.challenges.Day7
-import ch.mikewong.adventofcode.year2021.challenges.Day8
-import ch.mikewong.adventofcode.year2021.challenges.Day9
+import ch.mikewong.adventofcode.year2021.challenges.*
 
 object Runner : BaseRunner() {
 
