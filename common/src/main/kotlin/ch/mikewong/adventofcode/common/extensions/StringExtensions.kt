@@ -37,3 +37,23 @@ fun String.substringBetween(startDelimiter: String, endDelimiter: String, defaul
  * Returns true if all characters in this string are unique, false if any character appears more than once
  */
 fun String.allUnique() = all(hashSetOf<Char>()::add)
+
+/**
+ * Returns the first digit of a string as an integer or null if no digit occurs in [this]
+ */
+fun String.firstDigit() = firstOrNull { it.isDigit() }?.digitToInt()
+
+/**
+ * Returns the last digit of a string as an integer or null if no digit occurs in [this]
+ */
+fun String.lastDigit() = lastOrNull { it.isDigit() }?.digitToInt()
+
+/**
+ * Returns the first indext of [string] within [this], or [default] if not found
+ */
+fun String.indexOfOrElse(string: String, default: Int = Int.MAX_VALUE) = indexOf(string).takeIf { it != -1 } ?: default
+
+/**
+ * Returns the last index of [string] within [this], or [default] if not found
+ */
+fun String.lastIndexOfOrElse(string: String, default: Int = Int.MIN_VALUE) = lastIndexOf(string).takeIf { it != -1 } ?: default
