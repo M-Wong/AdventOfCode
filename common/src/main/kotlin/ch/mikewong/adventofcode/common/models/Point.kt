@@ -55,17 +55,23 @@ data class Point(val x: Int, val y: Int) {
 
 	fun isAdjacentTo(other: Point) = abs(this.x - other.x) <= 1 && abs(this.y - other.y) <= 1
 
-	fun wrapAround(area: Area) = wrapAround(area.xRange, area.yRange)
+	fun wrapAround(area: Area, overshoot: Boolean = true) = wrapAround(area.xRange, area.yRange, overshoot)
 
-	fun wrapAround(xRange: IntRange, yRange: IntRange) = Point(
+	/**
+	 * Wraps this point around an [xRange] and [yRange]. Setting [overshoot] to true will wrap around and continue on the other side
+	 * E.g. Point(5, 5) wrapping around xRange 0..3 and yRange 0..3 will lead to the following output.
+	 * - overshoot = true -> Point(1, 1)
+	 * - overshoot = false -> Point(0, 0)
+	 */
+	fun wrapAround(xRange: IntRange, yRange: IntRange, overshoot: Boolean = true) = Point(
 		when {
-			this.x > xRange.last -> xRange.first
-			this.x < xRange.first -> xRange.last
+			this.x > xRange.last -> xRange.first + if (overshoot) x - xRange.last - 1 else 0
+			this.x < xRange.first -> xRange.last - if (overshoot) xRange.first - x - 1 else 0
 			else -> this.x
 		},
 		when {
-			this.y > yRange.last -> yRange.first
-			this.y < yRange.first -> yRange.last
+			this.y > yRange.last -> yRange.first + if (overshoot) y - yRange.last - 1 else 0
+			this.y < yRange.first -> yRange.last - if (overshoot) yRange.first - y - 1 else 0
 			else -> this.y
 		},
 	)

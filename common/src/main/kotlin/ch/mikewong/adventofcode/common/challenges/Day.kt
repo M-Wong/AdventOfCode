@@ -1,6 +1,7 @@
 package ch.mikewong.adventofcode.common.challenges
 
 import ch.mikewong.adventofcode.common.input.InputLoader
+import ch.mikewong.adventofcode.common.models.Size
 import ch.mikewong.adventofcode.common.util.InputUtil
 
 abstract class Day<O, T>(
@@ -17,6 +18,9 @@ abstract class Day<O, T>(
 
 	/** Get the input as a list of input groups, where each group is separated by two new lines */
 	protected val inputGroups: List<List<String>> by lazy { InputUtil.readInputGroups(day) }
+
+	/** Get the size of the input. The width will be equal to the longest row */
+	protected val inputSize by lazy { Size(inputLines.maxOf { it.length }, inputLines.count()) }
 
 	abstract fun partOne(): O
 	abstract fun partTwo(): T
