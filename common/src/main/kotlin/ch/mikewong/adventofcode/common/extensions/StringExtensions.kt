@@ -52,6 +52,11 @@ fun String.allUnique() = all(hashSetOf<Char>()::add)
 fun String.firstDigit() = firstOrNull { it.isDigit() }?.digitToInt()
 
 /**
+ * Returns [this] string with all non-digits stripped away
+ */
+fun String.allDigits() = filter { it.isDigit() }
+
+/**
  * Returns the last digit of a string as an integer or null if no digit occurs in [this]
  */
 fun String.lastDigit() = lastOrNull { it.isDigit() }?.digitToInt()
