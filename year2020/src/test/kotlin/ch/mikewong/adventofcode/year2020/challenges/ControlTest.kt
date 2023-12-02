@@ -29,6 +29,7 @@ private class DayProvider : ArgumentsProvider {
 	override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> {
 		return Stream.of(
 			ControlAnswer(Day1(), 514579, 241861950),
+			ControlAnswer(Day2(), 2, 1),
 		).map { Arguments.of(Named.of(it.day.toString(), it)) }
 	}
 }

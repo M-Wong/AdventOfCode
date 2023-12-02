@@ -34,6 +34,14 @@ fun String.substringBetween(startDelimiter: String, endDelimiter: String, defaul
 }
 
 /**
+ * Return a substring until the first occurrence of [delimiter]. If not found, will return the whole string
+ */
+fun String.substringUntil(delimiter: String): String {
+	val index = indexOf(delimiter)
+	return this.takeIf { index == -1 } ?: substring(0, index)
+}
+
+/**
  * Returns true if all characters in this string are unique, false if any character appears more than once
  */
 fun String.allUnique() = all(hashSetOf<Char>()::add)
