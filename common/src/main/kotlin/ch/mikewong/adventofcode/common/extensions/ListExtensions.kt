@@ -153,6 +153,13 @@ fun <T> List<T>.permutations(): List<List<T>> {
 }
 
 /**
+ * Returns a map where each element in [this] set is the key and the value is a set of all other values int [this]
+ */
+fun <T> Set<T>.combinations(): Map<T, Set<T>> {
+	return this.associateWith { element -> this.minus(element) }
+}
+
+/**
  * Swaps the elements at index [i] and [j] with each other
  */
 fun <T> MutableList<T>.swap(i: Int, j: Int) {

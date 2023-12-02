@@ -1,2 +1,6 @@
 rootProject.name = "AdventOfCode"
-include("common", "year2021", "year2022", "year2023")
+include("common")
+include("year2020")
+include("year2021")
+include("year2022")
+include("year2023")
