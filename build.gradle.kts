@@ -6,9 +6,6 @@ plugins {
 }
 
 allprojects {
-    group = "ch.mikewong.adventofcode"
-    version = "2022"
-
     repositories {
         mavenCentral()
     }

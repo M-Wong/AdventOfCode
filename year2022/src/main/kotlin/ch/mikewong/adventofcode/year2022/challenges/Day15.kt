@@ -25,7 +25,9 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 
 		var gap: Point? = null
 
-		for (y in max downTo min) {
+		val order = if (isRunningOnTestSet) min..max else max downTo min
+
+		for (y in order) {
 			val uniqueRanges = getUniqueRangesOnRow(y)
 			if (uniqueRanges.size > 1) {
 				val x = uniqueRanges.minOf { it.last } + 1

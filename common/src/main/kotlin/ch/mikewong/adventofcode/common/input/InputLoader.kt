@@ -10,6 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.IOException
+import java.time.LocalDate
+import java.time.Month
 import java.util.*
 
 object InputLoader {
@@ -21,6 +23,7 @@ object InputLoader {
 		}
 	}
 
+	/** The properties file containing the aoc_session_token property */
 	private const val PROPERTIES_FILE_PATH = "local.properties"
 	private const val AOC_URL = "https://adventofcode.com/{YEAR}/day/{DAY}/input"
 
@@ -34,26 +37,31 @@ object InputLoader {
 	}
 
 	fun downloadInput(year: Int, day: Int, overwrite: Boolean = false) {
-		val module = MODULE_PREFIX + year
-		val inputFilePath = "$TARGET_PATH/day$day.txt"
-		val targetFile = File(module, inputFilePath)
+		val targetDate = LocalDate.of(year, Month.DECEMBER, day)
+		val today = LocalDate.now()
 
-		if (overwrite || !targetFile.exists()) {
-			if (sessionToken == null) {
-				throw IllegalStateException("No session token defined for input download")
-			}
+		if (today >= targetDate) {
+			val module = MODULE_PREFIX + year
+			val inputFilePath = "$TARGET_PATH/day$day.txt"
+			val targetFile = File(module, inputFilePath)
 
-			val inputFileUrl = AOC_URL.replace("{YEAR}", year.toString()).replace("{DAY}", day.toString())
-			runBlocking(Dispatchers.IO) {
-				client.use { client ->
-					val response = client.get(inputFileUrl) {
-						this.header("Cookie", "session=$sessionToken")
-					}
+			if (overwrite || !targetFile.exists()) {
+				if (sessionToken == null) {
+					throw IllegalStateException("No session token defined for input download")
+				}
 
-					if (response.status.isSuccess()) {
-						targetFile.bufferedWriter().use { it.write(response.bodyAsText().trim()) }
-					} else {
-						throw IOException("Request failed with HTTP ${response.status.value}")
+				val inputFileUrl = AOC_URL.replace("{YEAR}", year.toString()).replace("{DAY}", day.toString())
+				runBlocking(Dispatchers.IO) {
+					client.use { client ->
+						val response = client.get(inputFileUrl) {
+							this.header("Cookie", "session=$sessionToken")
+						}
+
+						if (response.status.isSuccess()) {
+							targetFile.bufferedWriter().use { it.write(response.bodyAsText().trim()) }
+						} else {
+							throw IOException("Request failed with HTTP ${response.status.value}")
+						}
 					}
 				}
 			}
