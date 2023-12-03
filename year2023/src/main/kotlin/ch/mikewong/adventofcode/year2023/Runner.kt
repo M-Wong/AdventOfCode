@@ -3,6 +3,7 @@ package ch.mikewong.adventofcode.year2023
 import ch.mikewong.adventofcode.common.BaseRunner
 import ch.mikewong.adventofcode.year2023.challenges.Day1
 import ch.mikewong.adventofcode.year2023.challenges.Day2
+import ch.mikewong.adventofcode.year2023.challenges.Day3
 
 object Runner : BaseRunner() {
 
@@ -10,6 +11,7 @@ object Runner : BaseRunner() {
 	override val days = listOf(
 		Day1(),
 		Day2(),
+		Day3(),
 	)
 
 	@JvmStatic
