@@ -10,6 +10,8 @@ abstract class Day<O, T>(
 	val title: String,
 ) {
 
+	var isControlSet = false
+
 	/** Get the entire input as a single string, including new line characters */
 	protected val input: String by lazy { InputUtil.readInput(day) }
 

@@ -11,6 +11,9 @@ class Day5 : Day<Int, Int>(2020, 5, "Binary Boarding") {
 	}
 
 	override fun partTwo(): Int {
+		// The control set does not contain a consecutive list of seat IDs
+		if (isControlSet) return 0
+
 		val sortedSeatIds = seatIds.sorted()
 		val lowestSeatId = sortedSeatIds.first()
 		var startIndex = 0

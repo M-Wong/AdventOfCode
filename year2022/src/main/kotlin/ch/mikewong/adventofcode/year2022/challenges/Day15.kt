@@ -11,21 +11,20 @@ import kotlin.math.min
 class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 
 	private val sensors by lazy { readInput() }
-	private val isRunningOnTestSet by lazy { sensors.maxOf { it.position.y } < 100 } // Test set has different parameters than input
 
 	override fun partOne(): Int {
-		val rowToCheck = if (isRunningOnTestSet) 10 else 2000000
+		val rowToCheck = if (isControlSet) 10 else 2000000
 		val uniqueRanges = getUniqueRangesOnRow(rowToCheck)
 		return uniqueRanges.sumOf { abs(it.first) + abs(it.last) }
 	}
 
 	override fun partTwo(): Long {
 		val min = 0
-		val max = if (isRunningOnTestSet) 20 else 4000000
+		val max = if (isControlSet) 20 else 4000000
 
 		var gap: Point? = null
 
-		val order = if (isRunningOnTestSet) min..max else max downTo min
+		val order = if (isControlSet) min..max else max downTo min
 
 		for (y in order) {
 			val uniqueRanges = getUniqueRangesOnRow(y)

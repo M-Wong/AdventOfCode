@@ -15,6 +15,8 @@ class ControlTest {
 	@ParameterizedTest
 	@ArgumentsSource(DayProvider::class)
 	fun controlAnswers(answer: ControlAnswer<*, *>) {
+		answer.day.isControlSet = true
+
 		val actualPartOne = answer.day.partOne()
 		Assertions.assertEquals(answer.expectedAnswerPartOne, actualPartOne, "Day ${answer.day.day} - Part 1 failed the control")
 		println("Day ${answer.day} - Part 1 passed the control ($actualPartOne == ${answer.expectedAnswerPartOne})")

@@ -15,8 +15,6 @@ class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
 		map.keys.filter { it.x == minX }.minBy { it.y }
 	}
 
-	private val isRunningOnTestSet by lazy { instructions.size == 13 } // Test set has different cube net than input
-
 	/**
 	 * Area definitions of the cube faces
 	 */
@@ -93,7 +91,7 @@ class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
 	}
 
 	override fun partTwo(): Int {
-		if (isRunningOnTestSet) return 5031 // To lazy to create another mapping for the input data...
+		if (isControlSet) return 5031 // To lazy to create another mapping for the input data...
 
 		// Start on the front facing cube at the starting positon and looking east
 		var currentCubeFace = CubeFace.FRONT
