@@ -52,9 +52,14 @@ fun String.allUnique() = all(hashSetOf<Char>()::add)
 fun String.firstDigit() = firstOrNull { it.isDigit() }?.digitToInt()
 
 /**
- * Returns [this] string with all non-digits stripped away
+ * Returns [this] string with all non-digits stripped away. E.g. "a1b2c3 d4 e5" -> "12345"
  */
 fun String.allDigits() = filter { it.isDigit() }
+
+/**
+ * Returns [this] string as a list of integers. E.g. "a1 2b3 45 6 test    7" -> [1, 2, 3, 45, 6, 7]
+ */
+fun String.allNumbers() = "\\d+".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
 /**
  * Returns the last digit of a string as an integer or null if no digit occurs in [this]
