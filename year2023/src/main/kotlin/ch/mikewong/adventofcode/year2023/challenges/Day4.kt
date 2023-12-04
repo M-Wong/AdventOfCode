@@ -6,13 +6,11 @@ import ch.mikewong.adventofcode.common.extensions.pow
 
 class Day4 : Day<Int, Int>(2023, 4, "Scratchcards") {
 
-	private val scratchCards by lazy {
-		inputLines.map { line ->
-			val (winnings, mine) = line.split("|")
-			val winningNumbers = winnings.substringAfter(":").allNumbers()
-			val myNumbers = mine.allNumbers()
-			ScratchCard(winningNumbers, myNumbers)
-		}
+	private val scratchCards = inputLines.map { line ->
+		val (winnings, mine) = line.split("|")
+		val winningNumbers = winnings.substringAfter(":").allNumbers()
+		val myNumbers = mine.allNumbers()
+		ScratchCard(winningNumbers, myNumbers)
 	}
 
 	/**
@@ -29,12 +27,25 @@ class Day4 : Day<Int, Int>(2023, 4, "Scratchcards") {
 	}
 
 	override fun partTwo(): Int {
-		scratchCards.indices.forEach { cardIndex ->
-			cardCopiesWon[cardIndex] = countNumberOfCopiesWon(cardIndex)
+		// Iterative approach
+		val copies = IntArray(scratchCards.size) { 1 }
+		scratchCards.forEachIndexed { idx, card ->
+			// Iterate each card, then sum add the current number of cards to the ones this card copies
+			val numberOfWinningNumbers = card.winningNumbers.intersect(card.myNumbers.toSet()).count()
+			(1..numberOfWinningNumbers).forEach { offset ->
+				copies[idx + offset] += copies[idx]
+			}
 		}
 
-		// Sum up the number of card copies won and then add the number of original cards to get the final number
-		return cardCopiesWon.values.sum() + scratchCards.size
+		return copies.sum()
+
+		// Recursive approach (~2x slower)
+//		scratchCards.indices.forEach { cardIndex ->
+//			cardCopiesWon[cardIndex] = countNumberOfCopiesWon(cardIndex)
+//		}
+//
+//		// Sum up the number of card copies won and then add the number of original cards to get the final number
+//		return cardCopiesWon.values.sum() + scratchCards.size
 	}
 
 	private fun countNumberOfCopiesWon(cardIndex: Int): Int {
@@ -47,7 +58,8 @@ class Day4 : Day<Int, Int>(2023, 4, "Scratchcards") {
 			0
 		} else {
 			// The total number of cards this card wins, is the number of winning numbers plus the sum of card copies won by each of those cards
-			val totalNumberOfCardsWon = numberOfWinningNumbers + (1..numberOfWinningNumbers).sumOf { countNumberOfCopiesWon(cardIndex + it) }
+			val totalNumberOfCardsWon =
+				numberOfWinningNumbers + (1..numberOfWinningNumbers).sumOf { countNumberOfCopiesWon(cardIndex + it) }
 			totalNumberOfCardsWon.also { cardCopiesWon[cardIndex] = it }
 		}
 	}
