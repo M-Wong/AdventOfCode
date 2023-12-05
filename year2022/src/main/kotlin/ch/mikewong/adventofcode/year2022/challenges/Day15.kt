@@ -1,12 +1,11 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
+import ch.mikewong.adventofcode.common.extensions.merge
 import ch.mikewong.adventofcode.common.extensions.overlapsWith
 import ch.mikewong.adventofcode.common.extensions.substringBetween
 import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 
 class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 
@@ -105,13 +104,6 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 		}
 
 		return uniqueRanges
-	}
-
-	/**
-	 * Merge two overlapping ranges
-	 */
-	private fun IntRange.merge(other: IntRange): IntRange {
-		return min(this.first, other.first) .. max(this.last, other.last)
 	}
 
 	private data class Sensor(val position: Point, val closestBeacon: Point) {

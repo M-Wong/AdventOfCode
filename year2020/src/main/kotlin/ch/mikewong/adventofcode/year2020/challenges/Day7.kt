@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2020.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.allNumbers
+import ch.mikewong.adventofcode.common.extensions.allInts
 import ch.mikewong.adventofcode.common.extensions.substringUntil
 
 class Day7 : Day<Int, Int>(2020, 7, "Handy Haversacks") {
@@ -12,7 +12,7 @@ class Day7 : Day<Int, Int>(2020, 7, "Handy Haversacks") {
 		val (container, content) = line.split("contain")
 		val containerColor = container.substringUntil("bags").trim()
 		val contentColors = content.split(",").mapNotNull { part ->
-			val count = part.allNumbers().singleOrNull()
+			val count = part.allInts().singleOrNull()
 			count?.let {
 				val color =part.substringUntil("bag")
 					.filterNot { c -> c.isDigit() }

@@ -19,6 +19,13 @@ fun IntRange.fullyOverlapsWith(other: IntRange): Boolean {
 }
 
 /**
+ * Merge two overlapping ranges
+ */
+fun IntRange.merge(other: IntRange): IntRange {
+	return min(this.first, other.first) .. max(this.last, other.last)
+}
+
+/**
  * @return The absolute range value
  */
 fun IntRange.abs() = last - first

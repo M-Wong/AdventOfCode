@@ -1,15 +1,15 @@
 package ch.mikewong.adventofcode.year2023.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.allNumbers
+import ch.mikewong.adventofcode.common.extensions.allInts
 import ch.mikewong.adventofcode.common.extensions.pow
 
 class Day4 : Day<Int, Int>(2023, 4, "Scratchcards") {
 
 	private val scratchCards = inputLines.map { line ->
 		val (winnings, mine) = line.split("|")
-		val winningNumbers = winnings.substringAfter(":").allNumbers()
-		val myNumbers = mine.allNumbers()
+		val winningNumbers = winnings.substringAfter(":").allInts()
+		val myNumbers = mine.allInts()
 		ScratchCard(winningNumbers, myNumbers)
 	}
 
