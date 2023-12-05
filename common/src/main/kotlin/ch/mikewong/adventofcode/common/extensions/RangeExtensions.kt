@@ -12,6 +12,15 @@ fun IntRange.overlapsWith(other: IntRange, endInclusive: Boolean = true): Boolea
 }
 
 /**
+ * @return True if there is an overlap between [this] and the [other] IntRange
+ */
+fun LongRange.overlapsWith(other: LongRange, endInclusive: Boolean = true): Boolean {
+	val overlap = min(last, other.last) - max(first, other.first)
+	return if (endInclusive) overlap >= 0 else overlap > 0
+}
+
+
+/**
  * @return True if either [this] or the [other] IntRange is fully contained within the other one
  */
 fun IntRange.fullyOverlapsWith(other: IntRange): Boolean {
