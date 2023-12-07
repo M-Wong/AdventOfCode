@@ -194,3 +194,5 @@ fun <T> List<T>.firstOr(default: T) = this.firstOrNull() ?: default
  * @return The last element of [this] list or [default] if it is empty
  */
 fun <T> List<T>.lastOr(default: T) = this.lastOrNull() ?: default
+
+fun <T> List<T>.indexOfOrNull(value: T) = this.indexOf(value).takeIf { it != -1 }
