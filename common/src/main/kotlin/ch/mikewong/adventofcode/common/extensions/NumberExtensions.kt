@@ -10,7 +10,7 @@ fun Int.pow(n: Int) = this.toDouble().pow(n)
 /**
  * @return The greatest common divisor of two numbers [a] and [b]
  */
-fun gcd(a: Int, b: Int): Int {
+fun gcd(a: Long, b: Long): Long {
 	require(a > 0)
 	require(b > 0)
 
@@ -27,7 +27,13 @@ fun gcd(a: Int, b: Int): Int {
 /**
  * @return The least common multiple of two numbers [a] and [b]
  */
-fun lcm(a: Int, b: Int): Int {
+fun lcm(a: Long, b: Long): Long {
 	val gcd = gcd(a, b)
 	return a * b / gcd
+}
+
+fun lcm(input: List<Long>): Long {
+	var result = input[0]
+	for (i in 1 until input.size) result = lcm(result, input[i])
+	return result
 }
