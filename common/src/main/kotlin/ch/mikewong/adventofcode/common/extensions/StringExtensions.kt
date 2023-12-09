@@ -59,12 +59,12 @@ fun String.allDigits() = filter { it.isDigit() }
 /**
  * Returns [this] string as a list of integers. E.g. "a1 2b3 45 6 test    7" -> [1, 2, 3, 45, 6, 7]
  */
-fun String.allInts() = "\\d+".toRegex().findAll(this).map { it.value.toInt() }.toList()
+fun String.allInts() = "-?\\d+".toRegex().findAll(this).map { it.value.toInt() }.toList()
 
 /**
  * Returns [this] string as a list of integers. E.g. "a1 2b3 45 6 test    7" -> [1, 2, 3, 45, 6, 7]
  */
-fun String.allLongs() = "\\d+".toRegex().findAll(this).map { it.value.toLong() }.toList()
+fun String.allLongs() = "-?\\d+".toRegex().findAll(this).map { it.value.toLong() }.toList()
 
 /**
  * Returns the last digit of a string as an integer or null if no digit occurs in [this]
