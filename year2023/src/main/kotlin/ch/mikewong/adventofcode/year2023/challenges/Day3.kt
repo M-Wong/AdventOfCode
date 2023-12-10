@@ -17,7 +17,7 @@ class Day3 : Day<Int, Int>(2023, 3, "Gear Ratios") {
 		return findNumbersAdjacentToSymbols { it == '*' }.values.filter { it.size == 2 }.sumOf { it.product() }
 	}
 
-	private fun readSymbols() = inputLines.toGridNotNull { char -> char.takeIf { it != '.' && !it.isDigit() } }
+	private fun readSymbols() = inputLines.toGridNotNull { _, char -> char.takeIf { it != '.' && !it.isDigit() } }
 
 	private fun findNumbersAdjacentToSymbols(symbolFilter: (Char) -> Boolean): Map<Point, List<Int>> {
 		val numbersNextToSymbol = mutableMapOf<Point, MutableList<Int>>()

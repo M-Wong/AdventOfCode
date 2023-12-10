@@ -26,7 +26,7 @@ class Day3 : Day<Int, Int>(2020, 3, "Toboggan Trajectory") {
 		return slopes.map { countTreesOnSlope(it) }.product()
 	}
 
-	private fun readInput() = inputLines.toGridNotNull { char -> char.takeIf { it == '#' } }.keys
+	private fun readInput() = inputLines.toGridNotNull { _, char -> char.takeIf { it == '#' } }.keys
 
 	private fun countTreesOnSlope(slope: Slope): Int {
 		val requiredIterations = inputSize.height / slope.down

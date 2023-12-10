@@ -30,4 +30,15 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 	 * @return The total number of points included in this area
 	 */
 	fun surfaceArea() = (xRange.abs() + 1) * (yRange.abs() + 1)
+
+	/**
+	 * @return A set of all points within this area. This includes the edges
+	 */
+	fun allPoints() = buildSet {
+		xRange.forEach { x ->
+			yRange.forEach { y ->
+				add(Point(x, y))
+			}
+		}
+	}
 }

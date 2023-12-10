@@ -163,7 +163,7 @@ class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
 	}
 
 	private fun readMap(): Map<Point, MapTile> {
-		return inputGroups.first().toGridNotNull { c ->
+		return inputGroups.first().toGridNotNull { _, c ->
 			when (c) {
 				'.' -> MapTile.GROUND
 				'#' -> MapTile.WALL

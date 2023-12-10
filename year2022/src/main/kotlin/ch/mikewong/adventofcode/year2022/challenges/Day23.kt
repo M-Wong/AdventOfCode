@@ -99,7 +99,7 @@ class Day23 : Day<Int, Int>(2022, 23, "Unstable Diffusion") {
 		return moves.map { (to, from) -> Move(from, to) }
 	}
 
-	private fun readInput() = inputLines.toGridNotNull { if (it == '#') true else null }.keys
+	private fun readInput() = inputLines.toGridNotNull { _, c -> if (c == '#') true else null }.keys
 
 	private data class Move(val from: Point, val to: Point)
 

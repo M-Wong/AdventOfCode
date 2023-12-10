@@ -30,10 +30,11 @@ fun <T> Array<T>.shiftLeft(count: Int = 1, defaultProvider: (Int) -> T) {
  * Converts a list of strings to a grid where each character is mapped to a point with x/y (row/column) and its mapping value.
  * Skips characters that map to null
  */
-fun <T> List<String>.toGridNotNull(mapping: (Char) -> T?): Map<Point, T> {
+fun <T> List<String>.toGridNotNull(mapping: (Point, Char) -> T?): Map<Point, T> {
 	return mapIndexed { row, line ->
 		line.mapIndexedNotNull { column, char ->
-			mapping.invoke(char)?.let { Point(row, column) to it }
+			val point = Point(row, column)
+			mapping.invoke(point, char)?.let { point to it }
 		}
 	}.flatten().toMap()
 }
@@ -65,7 +66,7 @@ fun List<String>.toCharGrid(): Map<Point, Char> {
  */
 fun <T> List<String>.toGrid(transform: (Point, Char) -> T): Map<Point, T> {
 	return mapIndexed { row, line ->
-		line.toCharArray().mapIndexed { column, char ->
+		line.mapIndexed { column, char ->
 			val point = Point(row, column)
 			point to transform(point, char)
 		}
