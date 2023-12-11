@@ -80,8 +80,8 @@ data class Point(val x: Int, val y: Int) {
 		return sqrt((x - other.x).pow(2) + (y - other.y).pow(2))
 	}
 
-	fun manhattanDistanceTo(other: Point): Int {
-		return abs(other.x - x) + abs(other.y - y)
+	fun manhattanDistanceTo(other: Point): Long {
+		return abs(other.x.toLong() - x) + abs(other.y.toLong() - y)
 	}
 
 }

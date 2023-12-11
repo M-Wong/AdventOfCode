@@ -107,7 +107,7 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 	}
 
 	private data class Sensor(val position: Point, val closestBeacon: Point) {
-		val radius: Int = position.manhattanDistanceTo(closestBeacon)
+		val radius: Int = position.manhattanDistanceTo(closestBeacon).toInt()
 
 		override fun toString(): String {
 			return "$position -> $closestBeacon: $radius"

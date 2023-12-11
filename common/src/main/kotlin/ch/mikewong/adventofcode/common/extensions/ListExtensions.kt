@@ -161,6 +161,19 @@ fun <T> Set<T>.combinations(): Map<T, Set<T>> {
 }
 
 /**
+ * Returns a list of all unique pairs within [this] list
+ */
+fun <T> List<T>.allPairs(): List<Pair<T, T>>{
+	return buildList {
+		this@allPairs.indices.forEach { i ->
+			IntRange(i+1, this@allPairs.lastIndex).forEach { j ->
+				add(this@allPairs[i] to  this@allPairs[j])
+			}
+		}
+	}.distinct()
+}
+
+/**
  * Swaps the elements at index [i] and [j] with each other
  */
 fun <T> MutableList<T>.swap(i: Int, j: Int) {
