@@ -80,3 +80,16 @@ fun String.indexOfOrElse(string: String, default: Int = Int.MAX_VALUE) = indexOf
  * Returns the last index of [string] within [this], or [default] if not found
  */
 fun String.lastIndexOfOrElse(string: String, default: Int = Int.MIN_VALUE) = lastIndexOf(string).takeIf { it != -1 } ?: default
+
+/**
+ * Returns the number of different characters in two equal-lenght strings
+ */
+fun String.differentCharacters(other: String): Int {
+	if (this.length != other.length) {
+		throw IllegalArgumentException("Input strings must have the same length")
+	}
+
+	return this.indices.count { i ->
+		this[i] != other[i]
+	}
+}

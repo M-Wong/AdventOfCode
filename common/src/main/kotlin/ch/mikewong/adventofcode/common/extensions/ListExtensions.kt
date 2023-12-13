@@ -74,6 +74,35 @@ fun <T> List<String>.toGrid(transform: (Point, Char) -> T): Map<Point, T> {
 }
 
 /**
+ * Transposes a grid, represented by [this] list of strings.
+ * E.g.
+ * ABC123
+ * DEF456
+ * GHI789
+ *
+ * becomes
+ *
+ * ADG
+ * BEH
+ * CFI
+ * 147
+ * 258
+ * 369
+ */
+fun List<String>.transpose(): List<String> {
+	val width = this.first().length
+	if (this.isEmpty() || this.any { it.length != width }) {
+		throw IllegalArgumentException("Input is either empty or has varying lengths")
+	}
+
+	return List(width) { col ->
+		this.joinToString("") { row ->
+			row[col].toString()
+		}
+	}
+}
+
+/**
  * Create a pair out of a list using the first and last element (other elements, assuming there are any, are discarded)
  */
 fun List<String>.toPair() = first() to last()
