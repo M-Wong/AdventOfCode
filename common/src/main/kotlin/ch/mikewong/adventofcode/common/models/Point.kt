@@ -49,6 +49,8 @@ data class Point(val x: Int, val y: Int) {
 
 	fun move(direction: Direction) = move(direction.deltaX, direction.deltaY)
 
+	fun move(direction: Direction, distance: Int) = if (distance > 0) move(direction.deltaX * distance, direction.deltaY * distance) else this
+
 	fun move(deltaX: Int, deltaY: Int) = Point(this.x + deltaX, this.y + deltaY)
 
 	fun coerceIn(xRange: IntRange, yRange: IntRange) = Point(this.x.coerceIn(xRange), this.y.coerceIn(yRange))
