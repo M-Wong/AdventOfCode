@@ -12,6 +12,6 @@ data class Size(val width: Int, val height: Int) {
 	 */
 	fun toArea() = Area(
 		topLeft = Point(0, 0),
-		bottomRight = Point(height, width)
+		bottomRight = Point(height - 1, width - 1)
 	)
 }
