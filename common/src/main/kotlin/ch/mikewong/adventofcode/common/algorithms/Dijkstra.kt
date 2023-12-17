@@ -37,7 +37,7 @@ fun <T> dijkstra(
 	val previousNodes = mutableMapOf<T, T>()
 
 	// PriorityQueue of unvisited nodes and their current cost
-	val queue = PriorityQueue<QueueEntry<T>>(compareBy { it.currentCost })
+	val queue = PriorityQueue<QueueEntry<T>>()
 	queue.offer(QueueEntry(startingNode, startingCost))
 
 	// Process the queue while there are entries left
@@ -66,4 +66,6 @@ fun <T> dijkstra(
 }
 
 /** An intermediate queue entry for a [node] and its [currentCost] */
-private data class QueueEntry<T>(val node: T, val currentCost: Int)
+private data class QueueEntry<T>(val node: T, val currentCost: Int) : Comparable<QueueEntry<T>> {
+	override fun compareTo(other: QueueEntry<T>) = this.currentCost.compareTo(other.currentCost)
+}

@@ -1,9 +1,10 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
+import ch.mikewong.adventofcode.common.algorithms.dijkstra
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.models.Point
 import ch.mikewong.adventofcode.common.extensions.toIntGrid
-import java.util.*
+import ch.mikewong.adventofcode.common.models.Area
+import ch.mikewong.adventofcode.common.models.Point
 
 class Day15 : Day<Int, Int>(2021, 15, "Chiton") {
 
@@ -12,14 +13,32 @@ class Day15 : Day<Int, Int>(2021, 15, "Chiton") {
 
 	override fun partOne(): Int {
 		val endPoint = Point(riskGrid.maxOf { it.key.x }, riskGrid.maxOf { it.key.y })
-		return shortestPath(riskGrid, startPoint, endPoint)
+		val bounds = inputSize.toArea()
+
+		return dijkstra(
+			startingNode = startPoint,
+			isTargetNode = { it == endPoint },
+			neighbours = { current ->
+				current.adjacent { bounds.contains(it) }
+			},
+			costFunction = { _, next -> riskGrid.getValue(next) },
+		).totalCost
 	}
 
 	override fun partTwo(): Int {
 		val size = riskGrid.maxOf { it.key.x } + 1
 		val expandedGrid = expandGrid(riskGrid, size)
 		val endPoint = Point(expandedGrid.maxOf { it.key.x }, expandedGrid.maxOf { it.key.y })
-		return shortestPath(expandedGrid, startPoint, endPoint)
+		val bounds = Area(Point(0, 0), endPoint)
+
+		return dijkstra(
+			startingNode = startPoint,
+			isTargetNode = { it == endPoint },
+			neighbours = { current ->
+				current.adjacent { bounds.contains(it) }
+			},
+			costFunction = { _, next -> expandedGrid.getValue(next) },
+		).totalCost
 	}
 
 	private fun expandGrid(grid: Map<Point, Int>, size: Int): Map<Point, Int> {
@@ -39,33 +58,6 @@ class Day15 : Day<Int, Int>(2021, 15, "Chiton") {
 		}
 
 		return expandedGrid
-	}
-
-	private fun shortestPath(grid: Map<Point, Int>, start: Point, end: Point): Int {
-		val visited = mutableSetOf(start)
-		val queue = PriorityQueue<Path>()
-		queue.add(Path(start, setOf(start), 0))
-
-		while (queue.isNotEmpty()) {
-			val path = queue.poll()
-			if (path.start == end) {
-				return path.risk
-			}
-
-			path.start.adjacent { it.x in 0..end.x && it.y in 0..end.y && !visited.contains(it)  }.forEach { next ->
-				visited.add(next)
-				val newPath = path.nodes + next
-				queue.add(Path(next, newPath, path.risk + (grid[next] ?: 0)))
-			}
-		}
-
-		return -1
-	}
-
-	private data class Path(val start: Point, val nodes: Set<Point>, val risk: Int) : Comparable<Path> {
-		override fun compareTo(other: Path): Int {
-			return this.risk.compareTo(other.risk)
-		}
 	}
 
 }
