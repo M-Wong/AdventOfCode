@@ -86,4 +86,19 @@ data class Point(val x: Int, val y: Int) {
 		return abs(other.x.toLong() - x) + abs(other.y.toLong() - y)
 	}
 
+	fun directionTo(other: Point): Direction {
+		return when {
+			other == this -> Direction.CENTER
+			other.x == this.x && other.y > this.y -> Direction.EAST
+			other.x == this.x && other.y < this.y -> Direction.WEST
+			other.x > this.x && other.y == this.y -> Direction.SOUTH
+			other.x < this.x && other.y == this.y -> Direction.NORTH
+			other.x < this.x && other.y < this.y -> Direction.NORTH_WEST
+			other.x < this.x && other.y > this.y -> Direction.NORTH_EAST
+			other.x > this.x && other.y < this.y -> Direction.SOUTH_WEST
+			other.x > this.x && other.y > this.y -> Direction.SOUTH_EAST
+			else -> throw IllegalArgumentException("Should never happen")
+		}
+	}
+
 }

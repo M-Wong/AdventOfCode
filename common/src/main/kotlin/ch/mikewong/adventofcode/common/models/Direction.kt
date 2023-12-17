@@ -11,6 +11,18 @@ enum class Direction(val deltaX: Int, val deltaY: Int) {
 	SOUTH(1, 0),
 	SOUTH_EAST(1, 1);
 
+	companion object {
+		/** Returns the lateral (non-diagonal) directions */
+		fun lateral() = setOf(NORTH, EAST, SOUTH, WEST)
+
+		/** Returns the diagonal directions */
+		fun diagonal() = setOf(NORTH_EAST, SOUTH_EAST, SOUTH_WEST, NORTH_WEST)
+	}
+
+	fun isVertical() = this == NORTH || this == SOUTH
+
+	fun isHorizontal() = this == EAST || this == WEST
+
 	fun opposite() = when (this) {
 		NORTH_WEST -> SOUTH_EAST
 		NORTH -> SOUTH
