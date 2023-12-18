@@ -89,7 +89,7 @@ data class Point(val x: Long, val y: Long) {
 	}
 
 	fun manhattanDistanceTo(other: Point): Long {
-		return abs(other.x.toLong() - x) + abs(other.y.toLong() - y)
+		return abs(other.x - x) + abs(other.y - y)
 	}
 
 	fun directionTo(other: Point): Direction {
