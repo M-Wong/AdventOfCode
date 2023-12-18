@@ -47,6 +47,7 @@ private class DayProvider : ArgumentsProvider {
 			ControlAnswer(Day15(), 1320, 145),
 			ControlAnswer(Day16(), 46, 51),
 			ControlAnswer(Day17(), 102, 94),
+			ControlAnswer(Day18(), 62, 952408144115L),
 		).map { Arguments.of(Named.of(it.day.toString(), it)) }
 	}
 }
