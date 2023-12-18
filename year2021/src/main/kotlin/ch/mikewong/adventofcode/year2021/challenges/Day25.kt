@@ -17,9 +17,6 @@ class Day25 : Day<Int, Int>(2021, 25, "Sea Cucumber") {
 		}
 	}
 
-	private val xRange = inputLines.indices
-	private val yRange = inputLines[0].indices
-
 	override fun partOne(): Int {
 		val seabed = initialSeabed.toMutableMap()
 		var stepCount = 0
@@ -39,7 +36,7 @@ class Day25 : Day<Int, Int>(2021, 25, "Sea Cucumber") {
 
 	private fun moveInDirection(seabed: MutableMap<Point, Direction>, direction: Direction): Boolean {
 		val moves = seabed.filterValues { it == direction }.mapNotNull { (from, direction) ->
-			val to = from.move(direction).wrapAround(xRange, yRange)
+			val to = from.move(direction).wrapAround(inputSize.rowRange(), inputSize.colRange())
 
 			if (!seabed.containsKey(to)) {
 				from to to

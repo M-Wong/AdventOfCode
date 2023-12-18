@@ -23,9 +23,9 @@ class Day2 : Day<Int, Int>(2022, 2, "Rock Paper Scissors") {
 		return a.sum()
 	}
 
-	private fun String.toOption() = Option.values().first { it.identifiers.contains(this) }
+	private fun String.toOption() = Option.entries.first { it.identifiers.contains(this) }
 
-	private fun String.toOutcome() = Outcome.values().first { it.identifier == this }
+	private fun String.toOutcome() = Outcome.entries.first { it.identifier == this }
 
 	private enum class Option(val value: Int, vararg val identifiers: String) {
 		ROCK(1, "A", "X"),

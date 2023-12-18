@@ -31,7 +31,7 @@ class Day5 : Day<Int, Int>(2021, 5, "Hydrothermal Venture") {
 	}
 
 	private fun calculateGrid(ventLines: List<Line>): Array<IntArray> {
-		val grid = Array(sizeY) { IntArray(sizeX) { 0 } }
+		val grid = Array(sizeY.toInt()) { IntArray(sizeX.toInt()) { 0 } }
 
 		ventLines.forEach { line ->
 			// Calculate the max distance between the start and end points
@@ -41,7 +41,7 @@ class Day5 : Day<Int, Int>(2021, 5, "Hydrothermal Venture") {
 				// Calculate the new x and y values using the offset and the line slope for the x or y coordinate
 				val x = line.start.x + (offset * line.xSlope())
 				val y = line.start.y + (offset * line.ySlope())
-				grid[y][x] += 1
+				grid[y.toInt()][x.toInt()] += 1
 			}
 		}
 

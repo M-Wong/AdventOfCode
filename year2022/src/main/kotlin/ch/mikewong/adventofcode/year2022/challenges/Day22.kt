@@ -6,7 +6,7 @@ import ch.mikewong.adventofcode.common.models.Area
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
 
-class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
+class Day22 : Day<Long, Long>(2022, 22, "Monkey Map") {
 
 	private val map by lazy { readMap() }
 	private val instructions by lazy { readInstructions() }
@@ -62,7 +62,7 @@ class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
 		CubeFaceMapping(CubeFace.BOTTOM, Direction.WEST, CubeFace.LEFT) { p -> Point(100, p.x - 50) to Direction.SOUTH }, // x50-99 -> y0-49
 	)
 
-	override fun partOne(): Int {
+	override fun partOne(): Long {
 		var currentPosition = startPoint
 		var facingDirection = Direction.EAST
 		instructions.forEach { instruction ->
@@ -90,7 +90,7 @@ class Day22 : Day<Int, Int>(2022, 22, "Monkey Map") {
 		return 1000 * (currentPosition.x + 1) + 4 * (currentPosition.y + 1) + facingDirection.toValue()
 	}
 
-	override fun partTwo(): Int {
+	override fun partTwo(): Long {
 		if (isControlSet) return 5031 // To lazy to create another mapping for the input data...
 
 		// Start on the front facing cube at the starting positon and looking east

@@ -22,7 +22,7 @@ abstract class Day<O, T>(
 	protected val inputGroups: List<List<String>> by lazy { InputUtil.readInputGroups(day) }
 
 	/** Get the size of the input. The width will be equal to the longest row */
-	protected val inputSize by lazy { Size(inputLines.maxOf { it.length }, inputLines.count()) }
+	protected val inputSize by lazy { Size(inputLines.maxOf { it.length }.toLong(), inputLines.count().toLong()) }
 
 	abstract fun partOne(): O
 	abstract fun partTwo(): T

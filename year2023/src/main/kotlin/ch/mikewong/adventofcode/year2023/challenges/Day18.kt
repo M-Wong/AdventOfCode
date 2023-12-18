@@ -2,6 +2,7 @@ package ch.mikewong.adventofcode.year2023.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.models.Direction
+import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.absoluteValue
 import kotlin.math.roundToLong
 
@@ -21,7 +22,7 @@ class Day18 : Day<Long, Long>(2023, 18, "Lavaduct Lagoon") {
 
 	override fun partOne(): Long {
 		val borderLength = digInstructions.sumOf { it.meters }
-		val borderPoints = digInstructions.runningFold(LongPoint(0, 0)) { previous, instruction ->
+		val borderPoints = digInstructions.runningFold(Point(0, 0)) { previous, instruction ->
 			previous.move(instruction.direction, instruction.meters)
 		}
 		return calculateLagoonArea(borderLength, borderPoints)
@@ -29,13 +30,13 @@ class Day18 : Day<Long, Long>(2023, 18, "Lavaduct Lagoon") {
 
 	override fun partTwo(): Long {
 		val borderLength = digInstructions.sumOf { it.actualMeters }
-		val borderPoints = digInstructions.runningFold(LongPoint(0, 0)) { previous, instruction ->
+		val borderPoints = digInstructions.runningFold(Point(0, 0)) { previous, instruction ->
 			previous.move(instruction.actualDirection, instruction.actualMeters)
 		}
 		return calculateLagoonArea(borderLength, borderPoints)
 	}
 
-	private fun calculateLagoonArea(borderLength: Long, borderPoints: List<LongPoint>): Long {
+	private fun calculateLagoonArea(borderLength: Long, borderPoints: List<Point>): Long {
 		// Use the shoelace formula to calculate the area of the polygon defined by the border points
 		val shoelaceArea = borderPoints.shoelaceArea().roundToLong()
 
@@ -47,13 +48,8 @@ class Day18 : Day<Long, Long>(2023, 18, "Lavaduct Lagoon") {
 		return shoelaceArea + halfBorderLength + 1
 	}
 
-	private fun List<LongPoint>.shoelaceArea(): Double {
+	private fun List<Point>.shoelaceArea(): Double {
 		return (this.plus(this.first()).zipWithNext().sumOf { (a, b) -> (a.x * b.y) - (a.y * b.x) } / 2.0).absoluteValue
-	}
-
-	private data class LongPoint(val x: Long, val y: Long) {
-		fun move(direction: Direction, meters: Long) = move(meters * direction.deltaX.toLong(), meters * direction.deltaY.toLong())
-		fun move(deltaX: Long, deltaY: Long) = LongPoint(this.x + deltaX, this.y + deltaY)
 	}
 
 	@OptIn(ExperimentalStdlibApi::class)

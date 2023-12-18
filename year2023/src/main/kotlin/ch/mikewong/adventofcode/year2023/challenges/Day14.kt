@@ -5,19 +5,19 @@ import ch.mikewong.adventofcode.common.extensions.toGridNotNull
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
 
-class Day14 : Day<Int, Int>(2023, 14, "Parabolic Reflector Dish") {
+class Day14 : Day<Long, Long>(2023, 14, "Parabolic Reflector Dish") {
 
 	private val grid = inputLines.toGridNotNull { _, c -> c.takeIf { it != '.' } }
 	private val movableRocks = grid.filterValues { it == 'O' }.keys
 	private val stationaryRocks = grid.filterValues { it == '#' }.keys
 
-	override fun partOne(): Int {
+	override fun partOne(): Long {
 		return movableRocks.toList()
 			.moveRocks(Direction.NORTH)
 			.sumOf { inputSize.height - it.x }
 	}
 
-	override fun partTwo(): Int {
+	override fun partTwo(): Long {
 		val cycles = 1_000_000_000
 		var rocks = movableRocks.toList()
 

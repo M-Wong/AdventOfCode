@@ -3,16 +3,17 @@ package ch.mikewong.adventofcode.year2022.challenges
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.extensions.abs
 import ch.mikewong.adventofcode.common.models.Direction
+import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
 
 class Day17 : Day<Long, Long>(2022, 17, "Pyroclastic Flow") {
 
 	private val rockShapes = listOf(
-		setOf(LongPoint(0, 0), LongPoint(0, 1), LongPoint(0, 2), LongPoint(0, 3)),
-		setOf(LongPoint(0, 1), LongPoint(1, 0), LongPoint(1, 1), LongPoint(1, 2), LongPoint(2, 1)),
-		setOf(LongPoint(0, 2), LongPoint(1, 2), LongPoint(2, 0), LongPoint(2, 1), LongPoint(2, 2)),
-		setOf(LongPoint(0, 0), LongPoint(1, 0), LongPoint(2, 0), LongPoint(3, 0)),
-		setOf(LongPoint(0, 0), LongPoint(0, 1), LongPoint(1, 0), LongPoint(1, 1)),
+		setOf(Point(0, 0), Point(0, 1), Point(0, 2), Point(0, 3)),
+		setOf(Point(0, 1), Point(1, 0), Point(1, 1), Point(1, 2), Point(2, 1)),
+		setOf(Point(0, 2), Point(1, 2), Point(2, 0), Point(2, 1), Point(2, 2)),
+		setOf(Point(0, 0), Point(1, 0), Point(2, 0), Point(3, 0)),
+		setOf(Point(0, 0), Point(0, 1), Point(1, 0), Point(1, 1)),
 	)
 	private val pushDirections by lazy { input.map { it.toDirection() } }
 
@@ -138,8 +139,8 @@ class Day17 : Day<Long, Long>(2022, 17, "Pyroclastic Flow") {
 //		fallenRocks.map { it.shapePositions }
 //			.flatten()
 //			.associateWith { "#" }
-//			.plus(LongPoint(0, 0) to "+")
-//			.plus(LongPoint(0, 8) to "+")
+//			.plus(Point(0, 0) to "+")
+//			.plus(Point(0, 8) to "+")
 //			.printAsGrid()
 
 		return SimulationState(abs(topMostEdge), fallenRockCount, false)
@@ -153,7 +154,7 @@ class Day17 : Day<Long, Long>(2022, 17, "Pyroclastic Flow") {
 
 	private data class SimulationState(val height: Long, val fallenRockCount: Long, val isStartOfPushDirectionSet: Boolean)
 
-	private data class RockShape(private val shapePositions: Set<LongPoint>) {
+	private data class RockShape(private val shapePositions: Set<Point>) {
 		// The min and max of this shape on both axis
 		val xRange = shapePositions.minOf { it.x }..shapePositions.maxOf { it.x }
 		val yRange = shapePositions.minOf { it.y }..shapePositions.maxOf { it.y }
@@ -186,11 +187,6 @@ class Day17 : Day<Long, Long>(2022, 17, "Pyroclastic Flow") {
 		 * @return True if any of the shape positions of this or the [other] rock shape are the same
 		 */
 		fun collidesWith(other: RockShape) = this.shapePositions.any { other.shapePositions.contains(it) }
-	}
-
-	private data class LongPoint(val x: Long, val y: Long) {
-		fun move(direction: Direction) = move(direction.deltaX.toLong(), direction.deltaY.toLong())
-		fun move(deltaX: Long, deltaY: Long) = LongPoint(this.x + deltaX, this.y + deltaY)
 	}
 
 }

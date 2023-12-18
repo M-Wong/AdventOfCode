@@ -7,19 +7,19 @@ import ch.mikewong.adventofcode.common.extensions.substringBetween
 import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
 
-class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
+class Day15 : Day<Long, Long>(2022, 15, "Beacon Exclusion Zone") {
 
 	private val sensors by lazy { readInput() }
 
-	override fun partOne(): Int {
-		val rowToCheck = if (isControlSet) 10 else 2000000
+	override fun partOne(): Long {
+		val rowToCheck = if (isControlSet) 10L else 2000000L
 		val uniqueRanges = getUniqueRangesOnRow(rowToCheck)
 		return uniqueRanges.sumOf { abs(it.first) + abs(it.last) }
 	}
 
 	override fun partTwo(): Long {
-		val min = 0
-		val max = if (isControlSet) 20 else 4000000
+		val min = 0L
+		val max = if (isControlSet) 20L else 4000000L
 
 		var gap: Point? = null
 
@@ -57,7 +57,7 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 	/**
 	 * Return the coverage of a single [sensor] for a given [row], which is 2 * (radius - rowDistanceToSensor) + 1
 	 */
-	private fun getCoverageOnRow(row: Int, sensor: Sensor): Int {
+	private fun getCoverageOnRow(row: Long, sensor: Sensor): Long {
 		val rowDistanceToSensor = abs(row - sensor.position.y)
 		return (2 * (sensor.radius - rowDistanceToSensor) + 1).coerceAtLeast(0)
 	}
@@ -65,7 +65,7 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 	/**
 	 * Return all ranges covered by a sensor on [row]. These might overlap
 	 */
-	private fun getRangesOnRow(row: Int): List<IntRange> {
+	private fun getRangesOnRow(row: Long): List<LongRange> {
 		val sensorCoverage = sensors.mapNotNull { sensor ->
 			val coverage = getCoverageOnRow(row, sensor)
 			coverage.takeIf { it > 0 }?.let { sensor.position.x to it }
@@ -80,9 +80,9 @@ class Day15 : Day<Int, Long>(2022, 15, "Beacon Exclusion Zone") {
 	/**
 	 * Get unique ranges covered by all sensors on [row]. These should not overlap anymore
 	 */
-	private fun getUniqueRangesOnRow(row: Int): List<IntRange> {
+	private fun getUniqueRangesOnRow(row: Long): List<LongRange> {
 		val ranges = getRangesOnRow(row).toMutableList()
-		val uniqueRanges = mutableListOf<IntRange>()
+		val uniqueRanges = mutableListOf<LongRange>()
 
 		// Use ranges as a stack and keep processing while it is not empty
 		while (ranges.isNotEmpty()) {

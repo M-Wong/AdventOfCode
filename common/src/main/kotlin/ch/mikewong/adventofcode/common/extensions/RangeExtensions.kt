@@ -35,6 +35,13 @@ fun IntRange.merge(other: IntRange): IntRange {
 }
 
 /**
+ * Merge two overlapping ranges
+ */
+fun LongRange.merge(other: LongRange): LongRange {
+	return min(this.first, other.first) .. max(this.last, other.last)
+}
+
+/**
  * @return The absolute range value
  */
 fun IntRange.abs() = last - first

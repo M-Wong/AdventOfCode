@@ -1,6 +1,6 @@
 package ch.mikewong.adventofcode.common.models
 
-data class Size(val width: Int, val height: Int) {
+data class Size(val width: Long, val height: Long) {
 	/** The range for row indices */
 	fun rowRange() = 0 until height
 

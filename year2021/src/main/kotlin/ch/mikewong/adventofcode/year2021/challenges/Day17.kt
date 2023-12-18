@@ -1,15 +1,15 @@
 package ch.mikewong.adventofcode.year2021.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.models.Point
 import ch.mikewong.adventofcode.common.extensions.asInts
 import ch.mikewong.adventofcode.common.extensions.substringBetween
+import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.sqrt
 
-class Day17 : Day<Int, Int>(2021, 17, "Trick Shot") {
+class Day17 : Day<Long, Int>(2021, 17, "Trick Shot") {
 
 	private val startPoint = Point(0, 0)
 	private val targetArea = inputLines.first().run {
@@ -20,7 +20,7 @@ class Day17 : Day<Int, Int>(2021, 17, "Trick Shot") {
 	private val targetTopLeft = Point(targetArea.first.minOrNull() ?: 0, targetArea.second.maxOrNull() ?: 0)
 	private val targetBottomRight = Point(targetArea.first.maxOrNull() ?: 0, targetArea.second.minOrNull() ?: 0)
 
-	override fun partOne(): Int {
+	override fun partOne(): Long {
 		val hittingVelocities = findHittingVelocities()
 		return hittingVelocities.values.maxOrNull() ?: 0
 	}
@@ -30,19 +30,19 @@ class Day17 : Day<Int, Int>(2021, 17, "Trick Shot") {
 		return hittingVelocities.size
 	}
 
-	private fun findHittingVelocities(): Map<Velocity, Int> {
-		val results = mutableMapOf<Velocity, Int>()
+	private fun findHittingVelocities(): Map<Velocity, Long> {
+		val results = mutableMapOf<Velocity, Long>()
 
 		val xDistanceRange = targetArea.first
 		val requiredVelocityRangeX = (floor(sqrt(xDistanceRange.first * 2.0)).toInt()..ceil(sqrt(xDistanceRange.last * 2.0)).toInt())
 			.filter { (it * (it + 1)) / 2 in xDistanceRange }
 
-		(requiredVelocityRangeX.first()..(requiredVelocityRangeX.last() + 1000)).forEach { xVelocity ->
+		(requiredVelocityRangeX.first()..(requiredVelocityRangeX.last() + 1000L)).forEach { xVelocity ->
 			val startingVelocityY = targetBottomRight.y
 
-			(startingVelocityY..1000).forEach { yVelocity ->
+			(startingVelocityY..1000L).forEach { yVelocity ->
 				val initialVelocity = Velocity(xVelocity, yVelocity)
-				var currentMaxHeight = 0
+				var currentMaxHeight = 0L
 
 				var currentLocation = startPoint
 				var currentVelocity = initialVelocity

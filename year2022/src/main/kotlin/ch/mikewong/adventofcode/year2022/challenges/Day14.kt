@@ -1,7 +1,6 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.printAsGrid
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
 
@@ -33,11 +32,11 @@ class Day14 : Day<Int, Int>(2022, 14, "Regolith Reservoir") {
 		var unitsOfSand = 0
 
 		// While the resting point for sand starting at the source is not equal to the starting point itself, update the cave layout and increment the sand unit count
-		var restingPoint: Point = moveSand(caveLayout.keys, sourceOfSand, floor)!!
+		var restingPoint = requireNotNull(moveSand(caveLayout.keys, sourceOfSand, floor))
 		while (restingPoint != sourceOfSand) {
 			unitsOfSand++
 			caveLayout[restingPoint] = "o"
-			restingPoint = moveSand(caveLayout.keys, sourceOfSand, floor)!!
+			restingPoint = requireNotNull(moveSand(caveLayout.keys, sourceOfSand, floor))
 		}
 
 		// Plus one because the starting point is not included
@@ -66,7 +65,7 @@ class Day14 : Day<Int, Int>(2022, 14, "Regolith Reservoir") {
 		return rockStructures
 	}
 
-	private fun moveSand(caveLayout: Set<Point>, previous: Point, floor: Int? = null): Point? {
+	private fun moveSand(caveLayout: Set<Point>, previous: Point, floor: Long? = null): Point? {
 		if (floor == null && caveLayout.none { it.x == previous.x && it.y > previous.y }) {
 			return null // No more solid structures below. Only applies if there is no floor
 		}

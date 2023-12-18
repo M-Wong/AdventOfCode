@@ -6,13 +6,13 @@ import ch.mikewong.adventofcode.common.models.Area
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
 
-class Day23 : Day<Int, Int>(2022, 23, "Unstable Diffusion") {
+class Day23 : Day<Long, Long>(2022, 23, "Unstable Diffusion") {
 
 	private val originalElfPositions by lazy { readInput() }
 
-	override fun partOne(): Int {
+	override fun partOne(): Long {
 		val elfPositions = originalElfPositions.toMutableSet()
-		val directionQueue = MovementDirections.values().toMutableList()
+		val directionQueue = MovementDirections.entries.toMutableList()
 
 		repeat(10) {
 			val moves = determineElfMovements(elfPositions, directionQueue)
@@ -32,11 +32,11 @@ class Day23 : Day<Int, Int>(2022, 23, "Unstable Diffusion") {
 		return smallestRectangle.surfaceArea() - elfPositions.size
 	}
 
-	override fun partTwo(): Int {
+	override fun partTwo(): Long {
 		val elfPositions = originalElfPositions.toMutableSet()
-		val directionQueue = MovementDirections.values().toMutableList()
+		val directionQueue = MovementDirections.entries.toMutableList()
 
-		var roundNumber = 0
+		var roundNumber = 0L
 		var canMove = true
 
 		while (canMove) {

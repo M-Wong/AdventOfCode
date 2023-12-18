@@ -1,14 +1,16 @@
 package ch.mikewong.adventofcode.common.models
 
-import ch.mikewong.adventofcode.common.extensions.pow
 import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
  * x == row
  * y == column
  */
-data class Point(val x: Int, val y: Int) {
+data class Point(val x: Long, val y: Long) {
+
+	constructor(x: Int, y: Int): this(x.toLong(), y.toLong())
 
 	override fun toString(): String {
 		return "($x,$y)"
@@ -49,11 +51,15 @@ data class Point(val x: Int, val y: Int) {
 
 	fun move(direction: Direction) = move(direction.deltaX, direction.deltaY)
 
-	fun move(direction: Direction, distance: Int) = if (distance > 0) move(direction.deltaX * distance, direction.deltaY * distance) else this
+	fun move(direction: Direction, distance: Int) = move(direction, distance.toLong())
 
-	fun move(deltaX: Int, deltaY: Int) = Point(this.x + deltaX, this.y + deltaY)
+	fun move(direction: Direction, distance: Long) = if (distance > 0) move(direction.deltaX * distance, direction.deltaY * distance) else this
 
-	fun coerceIn(xRange: IntRange, yRange: IntRange) = Point(this.x.coerceIn(xRange), this.y.coerceIn(yRange))
+	fun move(deltaX: Int, deltaY: Int) = move(deltaX.toLong(), deltaY.toLong())
+
+	fun move(deltaX: Long, deltaY: Long) = Point(this.x + deltaX, this.y + deltaY)
+
+	fun coerceIn(xRange: LongRange, yRange: LongRange) = Point(this.x.coerceIn(xRange), this.y.coerceIn(yRange))
 
 	fun isAdjacentTo(other: Point) = abs(this.x - other.x) <= 1 && abs(this.y - other.y) <= 1
 
@@ -65,7 +71,7 @@ data class Point(val x: Int, val y: Int) {
 	 * - overshoot = true -> Point(1, 1)
 	 * - overshoot = false -> Point(0, 0)
 	 */
-	fun wrapAround(xRange: IntRange, yRange: IntRange, overshoot: Boolean = true) = Point(
+	fun wrapAround(xRange: LongRange, yRange: LongRange, overshoot: Boolean = true) = Point(
 		when {
 			this.x > xRange.last -> xRange.first + if (overshoot) x - xRange.last - 1 else 0
 			this.x < xRange.first -> xRange.last - if (overshoot) xRange.first - x - 1 else 0
@@ -79,7 +85,7 @@ data class Point(val x: Int, val y: Int) {
 	)
 
 	fun distanceTo(other: Point): Double {
-		return sqrt((x - other.x).pow(2) + (y - other.y).pow(2))
+		return sqrt((x - other.x).toDouble().pow(2) + (y - other.y).toDouble().pow(2))
 	}
 
 	fun manhattanDistanceTo(other: Point): Long {

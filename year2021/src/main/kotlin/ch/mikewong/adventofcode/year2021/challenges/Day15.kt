@@ -27,7 +27,7 @@ class Day15 : Day<Int, Int>(2021, 15, "Chiton") {
 
 	override fun partTwo(): Int {
 		val size = riskGrid.maxOf { it.key.x } + 1
-		val expandedGrid = expandGrid(riskGrid, size)
+		val expandedGrid = expandGrid(riskGrid, size.toInt())
 		val endPoint = Point(expandedGrid.maxOf { it.key.x }, expandedGrid.maxOf { it.key.y })
 		val bounds = Area(Point(0, 0), endPoint)
 

@@ -3,8 +3,8 @@ package ch.mikewong.adventofcode.common.models
 import ch.mikewong.adventofcode.common.extensions.abs
 
 data class Area(val topLeft: Point, val bottomRight: Point) {
-	val xRange = topLeft.x..bottomRight.x
-	val yRange = topLeft.y..bottomRight.y
+	val xRange: LongRange = topLeft.x..bottomRight.x
+	val yRange: LongRange = topLeft.y..bottomRight.y
 
 	/**
 	 * @return True if the [point] is part of this area
