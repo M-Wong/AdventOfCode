@@ -1,6 +1,6 @@
 package ch.mikewong.adventofcode.common.models
 
-import ch.mikewong.adventofcode.common.extensions.abs
+import ch.mikewong.adventofcode.common.extensions.size
 
 data class Area(val topLeft: Point, val bottomRight: Point) {
 	val xRange: LongRange = topLeft.x..bottomRight.x
@@ -29,7 +29,7 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 	/**
 	 * @return The total number of points included in this area
 	 */
-	fun surfaceArea() = (xRange.abs() + 1) * (yRange.abs() + 1)
+	fun surfaceArea() = xRange.size() * yRange.size()
 
 	/**
 	 * @return A set of all points within this area. This includes the edges

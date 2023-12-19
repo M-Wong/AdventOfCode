@@ -1,7 +1,7 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.abs
+import ch.mikewong.adventofcode.common.extensions.size
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
@@ -163,7 +163,7 @@ class Day17 : Day<Long, Long>(2022, 17, "Pyroclastic Flow") {
 		 * @return A new rock shape moved to the correct starting position
 		 */
 		fun atStartingPosition(leftEdge: Int, bottomEdge: Long): RockShape {
-			val deltaX = (bottomEdge - 1) - xRange.first - xRange.abs()
+			val deltaX = (bottomEdge - 1) - xRange.first - (xRange.size() - 1)
 			val deltaY = (leftEdge + 1) - yRange.first
 			return this.copy(shapePositions = shapePositions.map { it.move(deltaX, deltaY) }.toSet())
 		}

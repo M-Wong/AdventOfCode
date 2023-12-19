@@ -41,3 +41,12 @@ fun <K, V> Map<K, V>.keysIntersectingByValue(other: Map<K, V>): List<Pair<K, K>>
 fun <T> Map<T, Long>.range(): Long {
 	return maxOf { it.value } - minOf { it.value }
 }
+
+/**
+ * Return a new map with the [key] set to [value]
+ */
+fun <K, V> Map<K, V>.set(key: K, value: V): Map<K, V> {
+	val newMap = this.toMutableMap()
+	newMap[key] = value
+	return newMap
+}

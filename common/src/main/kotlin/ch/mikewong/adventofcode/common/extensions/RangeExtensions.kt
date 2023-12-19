@@ -1,5 +1,6 @@
 package ch.mikewong.adventofcode.common.extensions
 
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -42,11 +43,6 @@ fun LongRange.merge(other: LongRange): LongRange {
 }
 
 /**
- * @return The absolute range value
+ * @return The size of this range, meaning the number of items inside this range
  */
-fun IntRange.abs() = last - first
-
-/**
- * @return The absolute range value
- */
-fun LongRange.abs() = last - first
+fun LongRange.size() = abs(last - first) + 1
