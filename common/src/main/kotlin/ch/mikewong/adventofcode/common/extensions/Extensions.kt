@@ -24,6 +24,18 @@ fun <T : Any> T.repeat(times: Int? = null): Sequence<T> = sequence {
 }
 
 /**
+ * Executes [block] while the given [condition] returns true and then returns the number of times it looped
+ */
+fun <T> countWhile(condition: (T) -> Boolean, block: () -> T): Int {
+	var counter = 0
+	do {
+		val output = block.invoke()
+		counter++
+	} while (condition.invoke(output))
+	return counter
+}
+
+/**
  * Cartesian product of input [Iterable]. (https://en.wikipedia.org/wiki/Cartesian_product)
  * Roughly equivalent to nested for-loops in a generator expression.
  * For example, product(A, B) returns the same as ((x,y) for x in A for y in B).
