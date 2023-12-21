@@ -73,13 +73,13 @@ data class Point(val x: Long, val y: Long) {
 	 */
 	fun wrapAround(xRange: LongRange, yRange: LongRange, overshoot: Boolean = true) = Point(
 		when {
-			this.x > xRange.last -> xRange.first + if (overshoot) x - xRange.last - 1 else 0
-			this.x < xRange.first -> xRange.last - if (overshoot) xRange.first - x - 1 else 0
+			this.x > xRange.last -> xRange.first + if (overshoot) x % (xRange.last + 1) else 0
+			this.x < xRange.first -> xRange.last - if (overshoot) (abs(x + 1) % (xRange.last + 1)) else 0
 			else -> this.x
 		},
 		when {
-			this.y > yRange.last -> yRange.first + if (overshoot) y - yRange.last - 1 else 0
-			this.y < yRange.first -> yRange.last - if (overshoot) yRange.first - y - 1 else 0
+			this.y > yRange.last -> yRange.first + if (overshoot) y % (yRange.last + 1) else 0
+			this.y < yRange.first -> yRange.last - if (overshoot) (abs(y + 1) % (yRange.last + 1)) else 0
 			else -> this.y
 		},
 	)
