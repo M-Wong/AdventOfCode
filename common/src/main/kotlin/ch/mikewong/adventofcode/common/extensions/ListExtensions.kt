@@ -6,12 +6,12 @@ import java.util.*
 /**
  * Convert a list of strings to a list of ints with the given [radix]
  */
-fun List<String>.asInts(radix: Int = 10) = this.map { it.toInt(radix) }
+fun List<String>.asInts(radix: Int = 10) = this.map { it.trim().toInt(radix) }
 
 /**
  * Convert a list of strings to a list of longs with the given [radix]
  */
-fun List<String>.asLongs(radix: Int = 10) = this.map { it.toLong(radix) }
+fun List<String>.asLongs(radix: Int = 10) = this.map { it.trim().toLong(radix) }
 
 /**
  * Shift the contents of an array to the left by [count] positions and fill the top part with the value of [defaultProvider]
