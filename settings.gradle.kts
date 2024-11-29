@@ -1,5 +1,6 @@
 rootProject.name = "AdventOfCode"
 include("common")
+include("inputs")
 include("year2020")
 include("year2021")
 include("year2022")
