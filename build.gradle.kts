@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     base
-    kotlin("jvm") version "2.0.0-Beta1"
+    alias(libs.plugins.kotlin.jvm)
 }
 
 allprojects {
@@ -12,14 +12,17 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply {
+        plugin(rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+    }
 
     dependencies {
-        implementation(kotlin("stdlib"))
-        implementation(kotlin("test"))
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+        implementation(rootProject.libs.kotlin.stdlib)
+        implementation(rootProject.libs.kotlin.test)
+
+        testImplementation(rootProject.libs.junit.jupiter.api)
+        testImplementation(rootProject.libs.junit.jupiter.params)
+        testRuntimeOnly(rootProject.libs.junit.jupiter.engine)
     }
 
     tasks.getByName<Test>("test") {
@@ -36,5 +39,5 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = libs.versions.jvm.get()
 }
