@@ -11,6 +11,8 @@ class Day25 : Day<Int, Int>(2023, 25, "Snowverload") {
 
 	private val componentGraph = readInput()
 
+	// 527790
+	// Vertices to remove: [(pzq, rrz), (ddj, znv), (jtr, mtq)]
 	override fun partOne(): Int {
 		// Get the most visited edges within the graph
 		val mostVistedEdges = nonDeterministicEdgeRemoval()
@@ -40,6 +42,13 @@ class Day25 : Day<Int, Int>(2023, 25, "Snowverload") {
 			}
 			queue.addAll(next)
 		}
+
+		// Total vertices: 1453
+		// Seen vertices: 730
+		// Remaining vertices: 723
+		println("Total vertices: ${vertices.size}")
+		println("Seen vertices: ${seen.size}")
+		println("Remaining vertices: ${(vertices.size - seen.size)}")
 
 		// If the graph was correctly split into two subgraphs, the size of the seen set will be the size of one subgraph and the total number of vertices minus that size will be the other subgraph
 		return (vertices.size - seen.size) * seen.size

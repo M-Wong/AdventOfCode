@@ -5,7 +5,7 @@ import ch.mikewong.adventofcode.year2023.challenges.*
 
 object Runner : BaseRunner() {
 
-	override val runMode = RunMode.LastDay
+	override val runMode = RunMode.AllDays
 	override val days = listOf(
 		Day1(),
 		Day2(),
