@@ -30,7 +30,7 @@ class ControlTest {
 private class DayProvider : ArgumentsProvider {
 	override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> {
 		return Stream.of(
-			ControlAnswer(Day1(), 0, 0),
+			ControlAnswer(Day1(), 11, 31),
 		).map { Arguments.of(Named.of(it.day.toString(), it)) }
 	}
 }
