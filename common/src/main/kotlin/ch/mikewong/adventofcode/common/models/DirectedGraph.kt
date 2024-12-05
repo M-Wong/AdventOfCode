@@ -23,15 +23,6 @@ class DirectedGraph<T> {
 	fun getConnectingNodes(node: T) = graph.getValue(node)
 
 	/**
-	 * @return A new graph with all edges removed from and to [node]
-	 */
-	fun removeNode(node: T): DirectedGraph<T> {
-		val graphMinusStartNode = graph.filter { it.key != node }
-			.mapValues { (_, v) -> v - node }
-		return DirectedGraph(graphMinusStartNode)
-	}
-
-	/**
 	 * @return A subgraph where only the edges between [nodes] are included
 	 */
 	fun subGraph(nodes: Set<T>): DirectedGraph<T> {
