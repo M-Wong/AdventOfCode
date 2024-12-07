@@ -34,4 +34,16 @@ enum class Direction(val deltaX: Int, val deltaY: Int) {
 		SOUTH -> NORTH
 		SOUTH_EAST -> NORTH_WEST
 	}
+
+	fun turnRight(lateralOnly: Boolean = true) = when (this) {
+		NORTH_WEST -> NORTH
+		NORTH -> if (lateralOnly) EAST else NORTH_EAST
+		NORTH_EAST -> EAST
+		WEST -> if (lateralOnly) NORTH else NORTH_WEST
+		CENTER -> CENTER
+		EAST -> if (lateralOnly) SOUTH else SOUTH_EAST
+		SOUTH_WEST -> WEST
+		SOUTH -> if (lateralOnly) WEST else SOUTH_WEST
+		SOUTH_EAST -> SOUTH
+	}
 }
