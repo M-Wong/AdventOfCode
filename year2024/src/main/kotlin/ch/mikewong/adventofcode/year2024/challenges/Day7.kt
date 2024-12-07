@@ -8,13 +8,13 @@ class Day7 : Day<Long, Long>(2024, 7, "Bridge Repair") {
 
 	// 303766880536
 	override fun partOne(): Long {
-		return equations.filter { it.canBeSolved(withConcatenation = false) }
+		return equations.filter { canBeSolved(it.result, it.operands, withConcatenation = false) }
 			.sumOf { it.result }
 	}
 
 	// 337041851384440
 	override fun partTwo(): Long {
-		return equations.filter { it.canBeSolved(withConcatenation = true) }
+		return equations.filter { canBeSolved(it.result, it.operands, withConcatenation = true) }
 			.sumOf { it.result }
 	}
 
@@ -26,46 +26,39 @@ class Day7 : Day<Long, Long>(2024, 7, "Bridge Repair") {
 		}
 	}
 
-	data class Equation(val result: Long, val operands: List<Long>) {
-		fun canBeSolved(withConcatenation: Boolean): Boolean {
-			val remainingPossibilities = mutableListOf(operands)
+	private fun canBeSolved(expectedResult: Long, operands: List<Long>, withConcatenation: Boolean): Boolean {
+		val first = operands[0]
+		val second = operands[1]
+		val remaining = operands.drop(2)
 
-			while (remainingPossibilities.isNotEmpty()) {
-				val nextPossibilities = mutableListOf<List<Long>>()
+		// Early return if the first or second number is already greater than the expected result (since we can only multiply or add)
+		if (first > expectedResult || second > expectedResult) return false
 
-				for (possibility in remainingPossibilities) {
-					val first = possibility[0]
-					val second = possibility[1]
-					val remaining = possibility.drop(2)
+		val sum = first + second
+		val product = first * second
 
-					// If there is more than one number left, try adding and multiplying the first two numbers and create new possibilities
-					val sum = first + second
-					val product = first * second
-
-					// Check if the result is reached, if not generate new possibilities
-					if (remaining.isEmpty()) {
-						if (sum == result || product == result) return true
-					} else {
-						nextPossibilities.add(listOf(sum) + remaining)
-						nextPossibilities.add(listOf(product) + remaining)
-					}
-
-					// If concatenation is allowed, try concatenating the first two numbers, then check if the result is reached or else generate new possibilities
-					if (withConcatenation) {
-						val concatenated = "$first$second".toLong()
-						if (remaining.isEmpty()) {
-							if (concatenated == result) return true
-						} else {
-							nextPossibilities.add(listOf(concatenated) + remaining)
-						}
-					}
-				}
-
-				remainingPossibilities.clear()
-				remainingPossibilities.addAll(nextPossibilities)
-			}
-
-			return false
+		if (remaining.isEmpty()) {
+			// If the remainder is empty, check if the sum or product is equal to the expected result
+			if (sum == expectedResult || product == expectedResult) return true
+		} else {
+			// Otherwise, recursively check the remaining operands with the sum or product
+			if (canBeSolved(expectedResult, listOf(sum) + remaining, withConcatenation)) return true
+			if (canBeSolved(expectedResult, listOf(product) + remaining, withConcatenation)) return true
 		}
+
+		if (withConcatenation) {
+			val concatenated = "$first$second".toLong()
+			if (remaining.isEmpty()) {
+				// If the remainder is empty, check if the concatenation is equal to the expected result
+				if (concatenated == expectedResult) return true
+			} else {
+				// Otherwise, recursively check the remaining operands with the concatenation
+				if (canBeSolved(expectedResult, listOf(concatenated) + remaining, true)) return true
+			}
+		}
+
+		return false
 	}
+
+	data class Equation(val result: Long, val operands: List<Long>)
 }
