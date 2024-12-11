@@ -93,3 +93,12 @@ fun String.differentCharacters(other: String): Int {
 		this[i] != other[i]
 	}
 }
+
+/**
+ * Returns a pair of strings, where [Pair.first] is the first half of the string and [Pair.second] is the second half
+ * If the string has an odd length, the second half will be one character longer than the first half
+ */
+fun String.splitIntoTwo(): Pair<String, String> {
+	val middle = length / 2
+	return substring(0, middle) to substring(middle)
+}
