@@ -37,3 +37,8 @@ fun lcm(input: List<Long>): Long {
 	for (i in 1 until input.size) result = lcm(result, input[i])
 	return result
 }
+
+/**
+ * @return True if the double is an integer number without floating points
+ */
+fun Double.isInteger() = this % 1.0 == 0.0
