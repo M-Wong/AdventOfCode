@@ -6,6 +6,9 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 	val xRange: LongRange = topLeft.x..bottomRight.x
 	val yRange: LongRange = topLeft.y..bottomRight.y
 
+	val centerX by lazy { (xRange.last - xRange.first) / 2 }
+	val centerY by lazy { (yRange.last - yRange.first) / 2 }
+
 	/**
 	 * @return True if the [point] is part of this area
 	 */

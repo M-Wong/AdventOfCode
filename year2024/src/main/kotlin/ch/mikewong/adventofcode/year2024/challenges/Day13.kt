@@ -14,12 +14,12 @@ class Day13 : Day<Long, Long>(2024, 13, "Claw Contraption") {
 	override fun partOne(): Long {
 		val buttonPresses = machines.mapNotNull { machine ->
 			solveLinearSystem(
-				machine.buttonA.dx,
-				machine.buttonB.dx,
-				machine.prize.targetX,
-				machine.buttonA.dy,
-				machine.buttonB.dy,
-				machine.prize.targetY
+				a1 = machine.buttonA.dx,
+				b1 = machine.buttonB.dx,
+				c1 = machine.prize.targetX,
+				a2 = machine.buttonA.dy,
+				b2 = machine.buttonB.dy,
+				c2 = machine.prize.targetY
 			)
 		}.filter { solution ->
 			// Filter out solutions that are not integers (not applicable for AoC) and are less than 100 (restriction for part 1)
@@ -33,12 +33,12 @@ class Day13 : Day<Long, Long>(2024, 13, "Claw Contraption") {
 	override fun partTwo(): Long {
 		val buttonPresses = machines.mapNotNull {
 			solveLinearSystem(
-				it.buttonA.dx,
-				it.buttonB.dx,
-				it.prize.targetX + 10000000000000,
-				it.buttonA.dy,
-				it.buttonB.dy,
-				it.prize.targetY + 10000000000000
+				a1 = it.buttonA.dx,
+				b1 = it.buttonB.dx,
+				c1 = it.prize.targetX + 10000000000000,
+				a2 = it.buttonA.dy,
+				b2 = it.buttonB.dy,
+				c2 = it.prize.targetY + 10000000000000
 			)
 		}.filter { solution ->
 			// Filter out solutions that are not integers (not applicable for AoC)

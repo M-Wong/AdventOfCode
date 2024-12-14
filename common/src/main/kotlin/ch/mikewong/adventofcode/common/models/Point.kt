@@ -5,8 +5,8 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
- * x == row
- * y == column
+ * x == row / vertical
+ * y == column / horizontal
  */
 data class Point(val x: Long, val y: Long) {
 
