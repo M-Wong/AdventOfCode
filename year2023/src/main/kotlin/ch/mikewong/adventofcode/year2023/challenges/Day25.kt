@@ -120,7 +120,7 @@ class Day25 : Day<Int, Int>(2023, 25, "Snowverload") {
 				}
 			)
 
-			return Path(vertices = result.path, totalDistance = result.totalCost)
+			return Path(vertices = result.paths.single(), totalDistance = result.totalCost)
 		}
 
 		data class Path<T>(val vertices: List<T>, val totalDistance: Int)

@@ -4,6 +4,7 @@ import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.extensions.toCharGrid
 import ch.mikewong.adventofcode.common.models.Direction
 import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.models.PointWithDirection
 
 class Day6 : Day<Int, Int>(2024, 6, "Guard Gallivant") {
 
@@ -58,7 +59,5 @@ class Day6 : Day<Int, Int>(2024, 6, "Guard Gallivant") {
 
 		return false
 	}
-
-	data class PointWithDirection(val point: Point, val direction: Direction)
 
 }
