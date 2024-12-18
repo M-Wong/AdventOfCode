@@ -2,8 +2,8 @@ package ch.mikewong.adventofcode.year2024.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
 import ch.mikewong.adventofcode.common.extensions.printAsCharGrid
-import ch.mikewong.adventofcode.common.models.Area
 import ch.mikewong.adventofcode.common.models.Point
+import ch.mikewong.adventofcode.common.models.Size
 
 class Day14 : Day<Int, Int>(2024, 14, "Restroom Redoubt") {
 
@@ -20,9 +20,9 @@ class Day14 : Day<Int, Int>(2024, 14, "Restroom Redoubt") {
 
 	private val bounds by lazy {
 		if (isControlSet) {
-			Area(Point(0, 0), Point(6, 10))
+			Size(11, 7).toArea()
 		} else {
-			Area(Point(0, 0), Point(102, 100))
+			Size(101, 103).toArea()
 		}
 	}
 
