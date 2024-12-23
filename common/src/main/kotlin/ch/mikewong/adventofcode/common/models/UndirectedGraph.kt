@@ -19,9 +19,19 @@ class UndirectedGraph<T> {
 	}
 
 	/**
+	 * @return All nodes in the graph
+	 */
+	fun getAllNodes() = graph.keys
+
+	/**
 	 * @return All nodes that [node] connects to
 	 */
 	fun getConnectingNodes(node: T) = graph.getValue(node)
+
+	/**
+	 * @return True if there is an edge between [first] and [second]
+	 */
+	fun areConnected(first: T, second: T) = graph.getValue(first).contains(second)
 
 	/**
 	 * @return A new graph with all edges removed from and to [node]
@@ -30,6 +40,61 @@ class UndirectedGraph<T> {
 		val graphMinusStartNode = graph.filter { it.key != node }
 			.mapValues { (_, v) -> v - node }
 		return UndirectedGraph(graphMinusStartNode)
+	}
+
+	/**
+	 * Bron-Kerbosch algorithm to find all maximal cliques (set of nodes that are all connected to each other) within the graph
+	 * This implements the Non-Pivot version of the algorithm, which might be less efficient but is easier to understand/implement
+	 */
+	fun maximalCliques(): Set<Set<T>> {
+		val allNodes = graph.keys
+		val largestCliques = mutableSetOf<Set<T>>()
+		var maxSize = 0
+
+		fun bronKerbosch(
+			current: Set<T>, // Current clique (r)
+			potential: Set<T>, // Potential nodes to add to the clique (p)
+			exclude: Set<T>, // Nodes that should be excluded (x)
+		) {
+			if (potential.isEmpty() && exclude.isEmpty()) {
+				// Found a maximal clique
+				when {
+					current.size > maxSize -> {
+						// Found a clique of larger size, reset the list
+						largestCliques.clear()
+						largestCliques.add(current)
+						maxSize = current.size
+					}
+					current.size == maxSize -> {
+						// Found another clique of the same maximal size
+						largestCliques.add(current)
+					}
+				}
+				return
+			} else {
+				val newPotential = potential.toMutableSet()
+				val newExclude = exclude.toMutableSet()
+
+				// For each potential node in the clique, recursively add it to the clique and update the new potential and exclude nodes
+				while (newPotential.isNotEmpty()) {
+					val node = newPotential.first().also { newPotential.remove(it) }
+					val neighbors = graph.getValue(node)
+
+					bronKerbosch(
+						current + node,
+						newPotential.intersect(neighbors),
+						newExclude.intersect(neighbors)
+					)
+
+					// Move the node from the potential to the exclude set
+					newPotential -= node
+					newExclude += node
+				}
+			}
+		}
+
+		bronKerbosch(emptySet(), allNodes.toSet(), emptySet())
+		return largestCliques
 	}
 
 }
