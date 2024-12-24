@@ -50,3 +50,13 @@ fun <K, V> Map<K, V>.set(key: K, value: V): Map<K, V> {
 	newMap[key] = value
 	return newMap
 }
+
+/**
+ * Swaps the values of [from] and [to]
+ */
+fun <K, V> MutableMap<K, V>.swap(from: K, to: K) {
+	val fromTile = this.getValue(from)
+	val toTile = this.getValue(to)
+	this[from] = toTile
+	this[to] = fromTile
+}
