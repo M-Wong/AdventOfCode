@@ -42,3 +42,10 @@ fun lcm(input: List<Long>): Long {
  * @return True if the double is an integer number without floating points
  */
 fun Double.isInteger() = this % 1.0 == 0.0
+
+/**
+ * @return True if [this] number is divisible by [divisor]
+ */
+fun Number.isDivisibleBy(divisor: Int): Boolean {
+	return this.toLong() % divisor == 0L
+}
