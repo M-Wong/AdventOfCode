@@ -46,3 +46,32 @@ fun LongRange.merge(other: LongRange): LongRange {
  * @return The size of this range, meaning the number of items inside this range
  */
 fun LongRange.size() = abs(last - first) + 1
+
+/**
+ * Merges all the ranges in [this] list into unique ranges by combining overlapping ranges. The resulting list contains only non-overlapping ranges.
+ */
+fun List<LongRange>.mergeToUniqueRanges(): List<LongRange> {
+	val ranges = this.toMutableList()
+	val uniqueRanges = mutableListOf<LongRange>()
+
+	// Use ranges as a stack and keep processing while it is not empty
+	while (ranges.isNotEmpty()) {
+		// Use the first range as a reference
+		val range = ranges.removeFirst()
+
+		// Find all remaining ranges that overlap with the reference range
+		val overlappingRanges = ranges.filter { it.overlapsWith(range) }
+		ranges.removeAll(overlappingRanges)
+
+		if (overlappingRanges.isEmpty()) {
+			// If no ranges overlap with the reference, it is unique
+			uniqueRanges.add(range)
+		} else {
+			// Fold the overlapping ranges onto the reference range by merging them and re-add the resulting range onto the stack
+			val newRange = overlappingRanges.fold(range) { a, b -> a.merge(b) }
+			ranges.add(newRange)
+		}
+	}
+
+	return uniqueRanges
+}

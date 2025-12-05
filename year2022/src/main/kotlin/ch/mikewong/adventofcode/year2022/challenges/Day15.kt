@@ -1,8 +1,7 @@
 package ch.mikewong.adventofcode.year2022.challenges
 
 import ch.mikewong.adventofcode.common.challenges.Day
-import ch.mikewong.adventofcode.common.extensions.merge
-import ch.mikewong.adventofcode.common.extensions.overlapsWith
+import ch.mikewong.adventofcode.common.extensions.mergeToUniqueRanges
 import ch.mikewong.adventofcode.common.extensions.substringBetween
 import ch.mikewong.adventofcode.common.models.Point
 import kotlin.math.abs
@@ -11,12 +10,14 @@ class Day15 : Day<Long, Long>(2022, 15, "Beacon Exclusion Zone") {
 
 	private val sensors by lazy { readInput() }
 
+	/** 4717631 */
 	override fun partOne(): Long {
 		val rowToCheck = if (isControlSet) 10L else 2000000L
-		val uniqueRanges = getUniqueRangesOnRow(rowToCheck)
+		val uniqueRanges = getRangesOnRow(rowToCheck).mergeToUniqueRanges()
 		return uniqueRanges.sumOf { abs(it.first) + abs(it.last) }
 	}
 
+	/** 13197439355220 */
 	override fun partTwo(): Long {
 		val min = 0L
 		val max = if (isControlSet) 20L else 4000000L
@@ -26,7 +27,7 @@ class Day15 : Day<Long, Long>(2022, 15, "Beacon Exclusion Zone") {
 		val order = if (isControlSet) min..max else max downTo min
 
 		for (y in order) {
-			val uniqueRanges = getUniqueRangesOnRow(y)
+			val uniqueRanges = getRangesOnRow(y).mergeToUniqueRanges()
 			if (uniqueRanges.size > 1) {
 				val x = uniqueRanges.minOf { it.last } + 1
 				gap = Point(x, y)
@@ -75,35 +76,6 @@ class Day15 : Day<Long, Long>(2022, 15, "Beacon Exclusion Zone") {
 			val halfCoverage = coverage / 2
 			(x - halfCoverage)..(x + halfCoverage)
 		}
-	}
-
-	/**
-	 * Get unique ranges covered by all sensors on [row]. These should not overlap anymore
-	 */
-	private fun getUniqueRangesOnRow(row: Long): List<LongRange> {
-		val ranges = getRangesOnRow(row).toMutableList()
-		val uniqueRanges = mutableListOf<LongRange>()
-
-		// Use ranges as a stack and keep processing while it is not empty
-		while (ranges.isNotEmpty()) {
-			// Use the first range as a reference
-			val range = ranges.removeFirst()
-
-			// Find all remaining ranges that overlap with the reference range
-			val overlappingRanges = ranges.filter { it.overlapsWith(range) }
-			ranges.removeAll(overlappingRanges)
-
-			if (overlappingRanges.isEmpty()) {
-				// If no ranges overlap with the reference, it is unique
-				uniqueRanges.add(range)
-			} else {
-				// Fold the overlapping ranges onto the reference range by merging them together and re-add the resulting range onto the stack
-				val newRange = overlappingRanges.fold(range) { a, b -> a.merge(b) }
-				ranges.add(newRange)
-			}
-		}
-
-		return uniqueRanges
 	}
 
 	private data class Sensor(val position: Point, val closestBeacon: Point) {
