@@ -102,3 +102,22 @@ fun String.splitIntoTwo(): Pair<String, String> {
 	val middle = length / 2
 	return substring(0, middle) to substring(middle)
 }
+
+/**
+ * Splits [this] string into substrings divided by the given [indices]
+ */
+fun String.splitBy(indices: List<Int>): List<String> {
+	return buildList {
+		var currentIdx = 0
+		indices.forEach { idx ->
+			if (idx > currentIdx) {
+				add(substring(currentIdx, idx))
+			}
+			currentIdx = idx
+		}
+
+		if (currentIdx < lastIndex) {
+			add(substring(currentIdx))
+		}
+	}
+}
