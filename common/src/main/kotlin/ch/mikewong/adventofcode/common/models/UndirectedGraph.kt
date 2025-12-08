@@ -97,4 +97,39 @@ class UndirectedGraph<T> {
 		return largestCliques
 	}
 
+	/**
+	 * Returns a set of all connected nodes in the graph.
+	 * If all nodes are connected, this will return a set with a single set containing all nodes.
+	 */
+	fun connectedComponents(): Set<Set<T>> {
+		val visited = mutableSetOf<T>()
+		val components = mutableSetOf<Set<T>>()
+
+		// DFS to find all nodes connected to the current node
+		fun findComponent(currentNode: T): Set<T> {
+			val component = mutableSetOf<T>()
+			val toVisit = mutableListOf(currentNode)
+
+			while (toVisit.isNotEmpty()) {
+				val node = toVisit.removeAt(toVisit.size - 1)
+				if (node !in component) {
+					component.add(node)
+					val neighbors = getConnectingNodes(node)
+					neighbors.forEach { toVisit.add(it) }
+				}
+			}
+
+			return component
+		}
+
+		getAllNodes().forEach { node ->
+			if (node !in visited) {
+				visited.add(node)
+				components.add(findComponent(node))
+			}
+		}
+
+		return components
+	}
+
 }
