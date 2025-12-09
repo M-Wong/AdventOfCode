@@ -45,6 +45,38 @@ data class MultiRectangle(val vertices: List<Point>) {
 		}
 	}
 
+	fun getEdgePoints(): Set<Point> {
+		val edgePoints = mutableSetOf<Point>()
+
+		closedLoop.zipWithNext().forEach { (a, b) ->
+			when {
+				a.x > b.x -> {
+					(b.x..a.x).forEach { x ->
+						edgePoints.add(Point(x, a.y))
+					}
+				}
+				a.x < b.x -> {
+					(a.x..b.x).forEach { x ->
+						edgePoints.add(Point(x, a.y))
+					}
+				}
+				a.y > b.y -> {
+					(b.y..a.y).forEach { y ->
+						edgePoints.add(Point(a.x, y))
+					}
+				}
+				a.y < b.y -> {
+					(a.y..b.y).forEach { y ->
+						edgePoints.add(Point(a.x, y))
+					}
+				}
+				else -> throw IllegalStateException("Points $a and $b are the same")
+			}
+		}
+
+		return edgePoints
+	}
+
 	/**
 	 * Calculate the area of this polygon using the Shoelace formula (see https://en.wikipedia.org/wiki/Shoelace_formula)
 	 */

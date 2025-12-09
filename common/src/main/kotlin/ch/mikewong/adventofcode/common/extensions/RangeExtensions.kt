@@ -81,6 +81,6 @@ fun List<LongRange>.mergeToUniqueRanges(): List<LongRange> {
  * E.g. 0..10 inset by 2 becomes 2..8
  */
 fun LongRange.inset(amount: Long = 1): LongRange {
-	require(this.size() > amount * 2) { "Range is too small to inset by $amount" }
+	require(this.size() > amount * 2) { "Range of size ${this.size()} is too small to inset by $amount" }
 	return (first + amount)..(last - amount)
 }

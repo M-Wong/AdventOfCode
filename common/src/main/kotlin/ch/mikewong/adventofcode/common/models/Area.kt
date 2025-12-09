@@ -42,7 +42,11 @@ data class Area(val topLeft: Point, val bottomRight: Point) {
 	 * @return True if the [point] is inside this area, excluding the edges
 	 */
 	fun isInside(point: Point): Boolean {
-		return point.x in xRange.inset() && point.y in yRange.inset()
+		return when {
+			xRange.size() <= 2L -> false
+			yRange.size() <= 2L -> false
+			else -> point.x in xRange.inset() && point.y in yRange.inset()
+		}
 	}
 
 	/**
