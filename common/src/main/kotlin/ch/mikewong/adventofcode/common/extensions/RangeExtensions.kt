@@ -75,3 +75,12 @@ fun List<LongRange>.mergeToUniqueRanges(): List<LongRange> {
 
 	return uniqueRanges
 }
+
+/**
+ * Insets [this] range by [amount] on both sides
+ * E.g. 0..10 inset by 2 becomes 2..8
+ */
+fun LongRange.inset(amount: Long = 1): LongRange {
+	require(this.size() > amount * 2) { "Range is too small to inset by $amount" }
+	return (first + amount)..(last - amount)
+}

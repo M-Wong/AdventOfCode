@@ -7,7 +7,7 @@ enum class ArithmeticOperation(val sign: String) {
 	DIVIDE("/");
 
 	companion object {
-		fun fromString(s: String) = values().first { s == it.sign }
+		fun fromString(s: String) = entries.first { s == it.sign }
 	}
 
 	fun apply(first: Long, second: Long) = when (this) {
