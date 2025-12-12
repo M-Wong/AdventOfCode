@@ -31,4 +31,59 @@ class DirectedGraph<T> {
 		return DirectedGraph(subGraph)
 	}
 
+	/**
+	 * Counts all paths from [start] to [end] with an optional set of [mustVisit] nodes
+	 * This does not return the actual paths, so it is more performant for large search spaces
+	 */
+	fun countPaths(start: T, end: T, mustVisit: Set<T> = emptySet()): Long {
+		val pathCounts = mutableMapOf<String, Long>()
+
+		fun recurse(node: T, leftToVisit: Set<T>): Long {
+			if (node == end) return if (leftToVisit.isEmpty()) 1 else 0
+
+			val key = "$node-$leftToVisit"
+			pathCounts[key]?.let { return it }
+
+			return getConnectingNodes(node)
+				.sumOf { next -> recurse(next, leftToVisit - next) }
+				.also { pathCounts[key] = it }
+		}
+
+		return recurse(start, mustVisit)
+	}
+
+	/**
+	 * Finds all paths from [start] to [end]
+	 * This does return the actual paths, so it is less performant for
+	 */
+	fun findPaths(start: T, end: T): List<Path<T>> {
+		val paths = mutableListOf<Path<T>>()
+		val queue = ArrayDeque<Path<T>>()
+
+		getConnectingNodes(start).forEach {
+			queue.add(Path(listOf(start, it)))
+		}
+
+		while (queue.isNotEmpty()) {
+			val currentPath = queue.removeFirst()
+			val currentNode = currentPath.nodes.last()
+			val previousNodes = currentPath.nodes.dropLast(1)
+
+			if (currentNode == end) {
+				paths.add(currentPath)
+			} else {
+				val nextNodes = getConnectingNodes(currentNode)
+				nextNodes.forEach { node ->
+					if (node !in previousNodes) {
+						queue.add(Path(currentPath.nodes + node))
+					}
+				}
+			}
+		}
+
+		return paths
+	}
+
+	data class Path<T>(val nodes: List<T>)
+
 }
